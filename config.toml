@@ -1,4 +1,4 @@
-baseURL = "https://example.com"
+baseURL = "https://goofy-agnesi-03e1c4.netlify.com/"
 languageCode = "en-us"
 defaultContentLanguage = "en"
 title = "Utsav Gupta"
@@ -68,3 +68,4 @@ enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/func
 
 [menu]
 
+[ Language ]
