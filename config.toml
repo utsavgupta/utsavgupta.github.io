@@ -58,8 +58,8 @@ enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/func
     url = "mailto:mail@utsavgupta.in"
 
   [[params.social]]
-    name = "instagram"
-    url = "https://www.instagram.com/utsavgupta89/"
+    name = "500px"
+    url = "https://www.500px.com/utsavgupta89/"
 
   [[params.social]]
     name = "github"
@@ -67,5 +67,3 @@ enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/func
 
 
 [menu]
-
-[ Language ]
