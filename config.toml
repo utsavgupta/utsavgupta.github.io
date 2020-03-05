@@ -20,7 +20,7 @@ enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/func
 [params]
 author = "Utsav Gupta"
 intro = "Your average software guy"
-description = "Aspiring cloud architect. Amatuer photographer. INTJ."
+description = "Aspiring cloud architect. Amateur photographer. INTJ."
 authorimage = "headshot.jfif"
 dateformat = "Jan 2, 2006"
 
@@ -86,4 +86,8 @@ displayrssicon = true
     identifier = "about"
     weight = 200
     url = "/about/"
-
+[[menu.main]]
+    name = "gear"
+    identifier = "gear"
+    weight = 300
+    url = "/gear/"
