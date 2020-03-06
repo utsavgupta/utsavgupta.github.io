@@ -86,8 +86,3 @@ displayrssicon = true
     identifier = "about"
     weight = 200
     url = "/about/"
-[[menu.main]]
-    name = "gear"
-    identifier = "gear"
-    weight = 300
-    url = "/gear/"
