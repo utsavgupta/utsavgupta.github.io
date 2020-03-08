@@ -8,7 +8,7 @@ tags: ["about"]
 
 showpagemeta: false
 ---
-I am a polyglot programmer with 4.5 years' professional experience in designing and developing scalable microservices. I am interested in architecting and developing solutions for the cloud. I am also passionate about [SRE](https://landing.google.com/sre/)(Site Reliability Engineering) practices.
+I am a polyglot programmer with 4.5 years' professional experience in designing and developing scalable microservices. I am interested in architecting and developing solutions for the cloud. I also have a keen interest in [SRE](https://landing.google.com/sre/)(Site Reliability Engineering) practices.
 
 I have experience in developing a bespoke identity and access mangement system and a custom built Dev Ops platform for two of the largest German retailers. 
 
