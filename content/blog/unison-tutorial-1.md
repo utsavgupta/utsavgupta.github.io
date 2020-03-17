@@ -216,4 +216,4 @@ Applying migration 1584126043 ... Done
 We are done !!
 ```
 
-*Please note: The project is in it's early stages. Contributions in terms of bug reports, documentation, and testing are welcome. Do not hesitate to report issues or raise pull requests.*
+*Please note: The project is in it's early stages. Contributions in terms of bug reports, documentation, and testing are welcome. Do not hesitate to report issues or to raise pull requests.*
