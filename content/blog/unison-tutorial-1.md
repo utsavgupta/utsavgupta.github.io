@@ -1,23 +1,23 @@
 ---
 title: "Unison: A Datastore migration library for Google Go"
-date: 2020-03-18T00:25:51+01:00
+date: 2020-03-17T22:10:51+01:00
 comments: true
 slug: "unison-datastore-migration-go"
 tags: ["unison", "datastore", "go"]
 
 showpagemeta: true
-draft: true
+draft: false
 ---
 
 Unison is a lightweight library that allows you to version and manage your Datastore migrations. In this blog article we will have a look at how you can install the Unison command line tool and get started migrating entities to Datastore.
 
-*Note: At the time of writing this article the library was not compatible with Google Firestore*
+*Note: At the time of writing this article the library was not compatible with Google Firestore.*
 
 *Before we begin, the article assumes that you have Google Go installed on your computer. In case you do not have it installed, [click here](https://golang.org/dl/) to grab an installer for your operating system.* 
 
 The go-unison project comprises two packages, viz, unison and unisoner. The first is the library that you will use to migrate your scripts, while the latter is a command line tool that lets you generate new migration scripts.
 
-In this tutorial let's create a migration script that migrates some delicious fruits to Datastore. Run the following commands to set up your project.
+Let's start with creating a migration script that migrates some delicious fruits to Datastore. Run the following commands to set up your project.
 
 ```bash
 $ mkdir goapp
@@ -25,10 +25,10 @@ $ cd goapp
 goapp $ go mod init goapp
 goapp $ go get cloud.google.com/go/datastore
 goapp $ mkdir ent
-goapp $ touch ent/fruits.go
+goapp $ touch ent/fruit.go
 goapp $ touch main.go
 ```
-The `ent/fruits.go` file should contain the serializable Datastore entity structure as follows.
+The `ent/fruit.go` file should contain the serializable Datastore entity structure as follows.
 
 ```go
 package ent
@@ -48,7 +48,7 @@ goapp $ go get github.com/utsavgupta/go-unison/unison
 
 We are now ready to create new migration files. When your execute the unisoner command it creates the following to bootstrap unison.
 
-- *Migration package*: A new package is created in the present working directory. By default the name of this package is migration. But this can be overridden by either setting the environment variable `unison_migration_package` or by passing `--migration_package <pkg_name>` while executing the command. Note: if values are received from both, environment variable and the command line param, the latter will gain precedence.
+- *Migration package*: A new package is created in the present working directory. By default the name of this package is migration. But this can be overridden by either setting the environment variable `unison_migration_package` or by passing `--migration_package <pkg_name>` while executing the command. Note: if values are received from both, environment variable and the command line param, the latter will be given precedence.
 - *Unison migrations type*: A new type gets created within the above package. It is on this type new migrations will be defined. Finally an instance of this type needs to be passed to the unison library for it to work its magic.
 
 Now with the details out of the way let's create our first migration script.
@@ -68,7 +68,7 @@ fruits.go   unison.go
 
 The file unison.go contains the migrations type that has been explained above. The other file is where the migration script goes. 
 
-aaOpen `fruits.go` in a text editor and the contents should look like the following.
+Open `gcp/fruits.go` in a text editor and the contents should look like the following.
 
 ```go
 package gcp
@@ -86,7 +86,7 @@ func (u *UnisonMigrations) Apply1584396052(t *datastore.Transaction, ns string) 
 
 Each migration file we generate should ideally contain one method defined on UnisonMigrations. These method names are based on the following naming convention `Apply<Timestamp>`. It is based on this timestamp that the unison library sorts the order of migrations. A migration once successfully commited *will not* be run again. Only migrations that have a timestamp greater than the last successully executed migration will be executed.
 
-Since I love eating apples and mangoes, I will migrate these two fruits to Datastore first. Let's make the following changes to fruits.go.
+Since I love eating apples and mangoes, I will migrate these two fruits to Datastore. Let's make the following changes to `gcp/fruits.go` (you can use your favorites here 😉).
 
 ```go
 package gcp
@@ -112,16 +112,16 @@ func (u *UnisonMigrations) Apply1584396052(t *datastore.Transaction, ns string) 
 	    keys[idx].Namespace = ns
 	}
 
-	_, err := t.PutMulti(keys, artists)
+	_, err := t.PutMulti(keys, fruits)
 
 	return err
 }
 ```
 
-Great out first migration script is ready. Now all that remains is to use the unison library to migrate this script. For that let's make changes to `main.go`.
+Great! Our first migration script is ready. Now all that remains is to use the unison library to migrate this script. For that let's make changes to `main.go`.
 
 ```go
-package gcp
+package main
 
 import (
     "context"
@@ -152,5 +152,68 @@ func main() {
 
 We are a step away from migrating our first entities to Datastore. Before running the code make sure you have Google application credentials set. More on it [here](https://cloud.google.com/docs/authentication/production).
 
+After you have set the variable you will be ready to run your shiny new migration script.
+
+```text
+goapp $ go run .
+Running Unison
+Applying migration 1584477480 ... Done
+We are done !!
+```
+Yay ! We are done migrating our first migration script. Head over to the Google Cloud console to verify the changes.
+
+![alt text](/img/unison-fruit-1.png "Fruit entities on Datastore")
+
+Note that the migration records themselves are stored as entites of kind `UnisonMigrationMeta`.
+
+![alt text](/img/unison-migrations-1.png "Migration entities")
+
+Now with the first migration script done, let's create a new script to migrate a few more fruits.
+
+```bash
+goapp $ unisoner --migration_package gcp
+Filename [.go extension is automatically appended] (default -> Apply1584126043): more_fruits
+Description: add more fruits
+```
+Edit the newly created `gcp/more_fruits.go` file to migrate a few more fruits.
+
+```go
+package gcp
+
+import (
+    "goapp/ent"
+
+    "cloud.google.com/go/datastore"
+)
+
+// Apply1584126043 add fruits
+func (u *UnisonMigrations) Apply1584126043(t *datastore.Transaction, ns string) error {
+
+    fruits := []ent.Fruit{
+		ent.Fruit{ID: "banana", Name: "Banana"},
+		ent.Fruit{ID: "orange", Name: "Orange"},
+		ent.Fruit{ID: "watermelon", Name: "Watermelon"},
+	}
+
+	keys := make([]*datastore.Key, len(fruits))
+
+	for idx, fruit := range fruits {
+		keys[idx] = datastore.NameKey("Fruits", fruit.ID, nil)
+	    keys[idx].Namespace = ns
+	}
+
+	_, err := t.PutMulti(keys, fruits)
+
+	return err
+}
+```
+Running `go run .` again should migrate only the new migration script.
+
+```text
+goapp $ go run .
+Running Unison
+Applying migration 1584126043 ... Done
+We are done !!
+```
 
 *Please note: The project is in it's early stages. Contributions in terms of bug reports, documentation, and testing are welcome. Do not hesitate to report issues or raise pull requests.*
