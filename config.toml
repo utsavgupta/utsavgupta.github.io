@@ -38,8 +38,8 @@ dateformat = "Jan 2, 2006"
 
 ## Site Meta Settings
 [params.meta]
-description = "Simple minimalist theme"
-keywords = "minimalist,blog,goa,hugo,developer"
+description = "Personal website and blog of yet another software developer"
+keywords = "utsav,gupta,utsavgupta,utsavgupta89,go lang,go,scala,microservices,sveltejs,go-unison"
 
 ## Social Accounts
 [params.social]
