@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Utsav Gupta</title>
-    <link>/</link>
-    <description>Recent content on Utsav Gupta</description>
+    <title>datastore on Utsav Gupta</title>
+    <link>/tags/datastore/</link>
+    <description>Recent content in datastore on Utsav Gupta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
     <lastBuildDate>Tue, 17 Mar 2020 22:10:51 +0100</lastBuildDate>
     
-	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/datastore/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -21,16 +21,6 @@
       <description>Unison is a lightweight library that allows you to version and manage your Datastore migrations. In this blog article we will have a look at how you can install the Unison command line tool and get started migrating entities to Datastore.
 Note: At the time of writing this article the library was not compatible with Google Firestore.
 Before we begin, the article assumes that you have Google Go installed on your computer.</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>/about/</link>
-      <pubDate>Fri, 06 Mar 2020 22:00:58 +0100</pubDate>
-      
-      <guid>/about/</guid>
-      <description>I am a polyglot programmer with 4.5 years&amp;rsquo; professional experience in designing and developing scalable microservices. I am interested in architecting and developing solutions for the cloud. I also have a keen interest in SRE(Site Reliability Engineering) practices.
-I am experienced in building and maintaining enterprise level platform services. My project work includes developing an OAuth2 and SAML 2.0 compliant identity and access management system for a large German wholesaler, and a custom built ci/cd platform for one of Germany&amp;rsquo;s largest discount retailers.</description>
     </item>
     
   </channel>
