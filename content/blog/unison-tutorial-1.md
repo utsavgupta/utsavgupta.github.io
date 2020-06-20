@@ -46,7 +46,7 @@ goapp $ go get github.com/utsavgupta/go-unison/unisoner
 goapp $ go get github.com/utsavgupta/go-unison/unison
 ```
 
-We are now ready to create new migration files. When your execute the unisoner command it creates the following to bootstrap unison.
+We are now ready to create new migration files. When you execute the unisoner command it creates the following to bootstrap unison.
 
 - *Migration package*: A new package is created in the present working directory. By default the name of this package is migration. But this can be overridden by either setting the environment variable `unison_migration_package` or by passing `--migration_package <pkg_name>` while executing the command. Note: if values are received from both, environment variable and the command line param, the latter will be given precedence.
 - *Unison migrations type*: A new type gets created within the above package. It is on this type new migrations will be defined. Finally an instance of this type needs to be passed to the unison library for it to work its magic.
