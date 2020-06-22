@@ -31,7 +31,7 @@ disqusShortname = "utsavgupta"
 ## Site Settings
 [params]
 author = "Utsav Gupta"
-intro = "Your average software guy"
+intro = "A software guy"
 description = "Aspiring cloud architect. Amateur photographer. INTJ."
 authorimage = "headshot.jpg"
 dateformat = "Jan 2, 2006"
