@@ -1,5 +1,5 @@
 ---
-title: "Installing a multinode Kubernetes cluster using Kubeadm"
+title: "Installing a multinode Kubernetes cluster using kubeadm"
 date: 2020-07-29T22:15:15+02:00
 draft: false
 slug: "installing-multinode-kubernetes-cluster-kubeadm"
