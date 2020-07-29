@@ -10,7 +10,7 @@ pygmentsUseClasses  = true
 rssLimit = 10  # Maximum number of items in the RSS feed.
 copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License." # This message is only used by the RSS template.
 enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/functions/emojify/
-googleAnalytics = "UA-161000849-1"
+
 disqusShortname = "utsavgupta"
 
 [markup]
@@ -84,8 +84,7 @@ copyright = "© 2020. Utsav Gupta. [Some Rights Reserved](http://creativecommons
 poweredby = true
 highlightjs = true
 socialmarkup = true
-toc = true
-displayrssicon = true
+displayrssicon = false
 
 ## Main Menu
 [[menu.main]]
