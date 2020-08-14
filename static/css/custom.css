@@ -1,0 +1,17 @@
+/* Add custom CSS here. */
+
+.about-display {
+    display: grid;
+    place-items: center;
+}
+
+.headshot {
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    border-radius: 50%;
+  }
+
+.padded-bottom {
+    padding-bottom: 25px;
+}

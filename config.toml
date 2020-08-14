@@ -1,97 +1,58 @@
-baseURL = "/"
-languageCode = "en-us"
-defaultContentLanguage = "en"
+# DO NOT REMOVE THIS
+theme = "harbor"
+
+baseURL = "https://utsavgupta.in/"
 title = "Utsav Gupta"
-theme = "hugo-goa"
-# enableGitInfo = true
-pygmentsCodefences  = true
-pygmentsUseClasses  = true
-# hasCJKLanguage = true  # If Chinese/Japanese/Korean is your main content language, enable this to make wordCount works right.
-rssLimit = 10  # Maximum number of items in the RSS feed.
-copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License." # This message is only used by the RSS template.
-enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/functions/emojify/
+author = "Utsav Gupta"
+paginate = 3
+languageCode = "en"
+DefaultContentLanguage = "en"
+enableInlineShortcodes = true
+footnoteReturnLinkContents = "^"
 
-[markup]
-  [markup.highlight]
-    codeFences = true
-    guessSyntax = false
-    hl_Lines = ""
-    lineNoStart = 1
-    lineNos = false
-    lineNumbersInTable = true
-    noClasses = true
-    style = "monokai"
-    tabWidth = 4
-
-[author]
+[Author]
   name = "Utsav Gupta"
 
-## Site Settings
+[permalinks]
+	post = "/blog/:slug/"
+	page = "/:filename/"
+
+[outputs]
+    section = ["JSON", "HTML"]
+
+[[params.nav]]
+  identifier = "about"
+  name = "About"
+  icon = "fas fa-user fa-lg"
+  url = "/about/"
+  weight = 3
+
+[[params.nav]]
+  identifier = "tags"
+  name = "Tags"
+  icon = "fas fa-tag fa-lg"
+  url = "tags"
+  weight = 3
+
 [params]
-author = "Utsav Gupta"
-intro = "A software guy"
-description = "Aspiring cloud architect. Amateur photographer. INTJ."
-authorimage = "headshot.jpg"
-dateformat = "Jan 2, 2006"
+  mainSections = ["post"]
+  favicon16 = "favicon-16x16.png"
+  favicon32 = "favicon-32x32.png"
+  description = "Personal website and blog of yet another software developer"
+  css = ["css/custom.css"]
 
-## Site Meta Settings
-[params.meta]
-description = "Personal website and blog of yet another software developer"
-keywords = "utsav,gupta,utsavgupta,utsavgupta89,go lang,go,scala,microservices,sveltejs,go-unison"
+[params.logo]
+    url = "logo.png"
+    width = 50
+    height = 50
+    alt = "Logo"
 
-## Social Accounts
 [params.social]
-github = "utsavgupta"
-#instagram = "<username>"
-#xing = "<username>"
-linkedin = "utsav-gupta"
-#twitter = "<username>"
-#facebook = "<username>"
-#google = "<username>"
-#googlescholar = "<account_id>"
-stackoverflow = "520209/utsav"
-#lastfm = "<username>"
-#goodreads = "<username>"
-#gitlab = "<username>"
-#bitbucket = "<username>"
-#fivehundredpx = "utsavgupta89"
-#flickr = "<username>"
-#foursquare = "<username>"
-#hackernews = "<username>"
-#kickstarter = "<username>"
-#patreon = "<username>"
-#pintrest = "<username>"
-#steam = "<username>"
-#reddit = "<username>"
-#snapchat = "<username>"
-#youtube = "<channelid>"
-#keybase = "<username>"
-#twitch = "<username>"
-#soundcloud = "<username>"
-#tumblr = "<username>"
-#strava = "<username>"
-#skype = "<username>"
-#telegram = "<username>"
-#whatsapp = "<username>"
-email = "mail@utsavgupta.in"
-pgp = "public_key"
+  github = "utsavgupta"
+  linkedin = "utsav-gupta"
+  stackoverflow = "https://stackoverflow.com/users/520209/utsav"
+  email = "mail@utsavgupta.in"
+  publickey = "public_key.txt"
 
-## Extras
-[params.extra]
-copyright = "© 2020. Utsav Gupta. [Some Rights Reserved](http://creativecommons.org/licenses/by/3.0/)."
-poweredby = true
-highlightjs = true
-socialmarkup = true
-displayrssicon = false
-
-## Main Menu
-[[menu.main]]
-    name = "blog"
-    weight = 100
-    identifier = "blog"
-    url = "/blog/"
-[[menu.main]]
-    name = "about"
-    identifier = "about"
-    weight = 200
-    url = "/about/"
+[markup.goldmark.renderer] 
+  unsafe= true 
