@@ -1,37 +1,36 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Utsav Gupta</title>
-    <link>/</link>
-    <description>Recent content on Utsav Gupta</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Tue, 17 Mar 2020 22:10:51 +0100</lastBuildDate>
-    
-	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Unison: A Datastore migration library for Google Go</title>
-      <link>/blog/unison-datastore-migration-go/</link>
-      <pubDate>Tue, 17 Mar 2020 22:10:51 +0100</pubDate>
-      
-      <guid>/blog/unison-datastore-migration-go/</guid>
-      <description>Unison is a lightweight library that allows you to version and manage your Datastore migrations. In this blog article we will have a look at how you can install the Unison command line tool and get started migrating entities to Datastore.
+	<channel>
+		<title>Utsav Gupta on Utsav Gupta</title>
+		<link>https://utsavgupta.in/</link>
+		<description>Recent content in Utsav Gupta </description>
+		<generator>Hugo -- gohugo.io</generator>
+		
+  		<language>en</language>
+		
+		<managingEditor>Page(&#34;Utsav Gupta&#34;) (Utsav Gupta)</managingEditor>
+    	
+  		<lastBuildDate>Wed, 29 Jul 2020 00:00:00 +0000</lastBuildDate>
+		
+		<atom:link href="/" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Installing a multinode Kubernetes cluster using kubeadm</title>
+			<link>https://utsavgupta.in/blog/installing-multinode-kubernetes-cluster-kubeadm/</link>
+			<pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
+			<guid>https://utsavgupta.in/blog/installing-multinode-kubernetes-cluster-kubeadm/</guid>
+			<description>I have been playing around with Kubernetes in various settings for almost three years. Majority of it in production. Where the infrastructure was either setup and configured by experienced platform engineers, or it was hosted on Google as GKE clusters. My interaction with Kubernetes has been limited to mostly handling the deployments that I work on.
+Recently I decided to start learning Kubernetes at a greater depth. So what better place to start than installing and configuring a multi node cluster on my laptop?</description>
+		</item>
+      	
+		<item>
+			<title>Unison: A Datastore migration library for Google Go</title>
+			<link>https://utsavgupta.in/blog/unison-datastore-migration-go/</link>
+			<pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate>
+			<guid>https://utsavgupta.in/blog/unison-datastore-migration-go/</guid>
+			<description>Unison is a lightweight library that allows you to version and manage your Datastore migrations. In this blog article we will have a look at how you can install the Unison command line tool and get started migrating entities to Datastore.
 Note: At the time of writing this article the library was not compatible with Google Firestore.
 Before we begin, the article assumes that you have Google Go installed on your computer.</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>/about/</link>
-      <pubDate>Fri, 06 Mar 2020 22:00:58 +0100</pubDate>
-      
-      <guid>/about/</guid>
-      <description>I am a polyglot programmer with 4.5 years&amp;rsquo; professional experience in designing and developing scalable microservices. I am interested in architecting and developing solutions for the cloud. I also have a keen interest in SRE(Site Reliability Engineering) practices.
-I am experienced in building and maintaining enterprise level platform services. My project work includes developing an OAuth2 and SAML 2.0 compliant identity and access management system for a large German wholesaler, and a custom built ci/cd platform for one of Germany&amp;rsquo;s largest discount retailers.</description>
-    </item>
-    
-  </channel>
+		</item>
+      	
+	</channel>
 </rss>

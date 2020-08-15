@@ -1,6 +1,6 @@
 ---
 title: "Unison: A Datastore migration library for Google Go"
-date: "2020-03-17"
+date: 2020-03-17T16:23:30Z
 slug: "unison-datastore-migration-go"
 tags: ["unison", "datastore", "go"]
 

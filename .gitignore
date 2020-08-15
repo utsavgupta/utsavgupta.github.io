@@ -12,3 +12,5 @@
 *.out
 
 themes/harbor/node_modules/
+
+public/*

@@ -1,6 +1,6 @@
 ---
 title: "Installing a multinode Kubernetes cluster using kubeadm"
-date: "2020-07-29"
+date: 2020-07-29T16:23:30Z
 slug: "installing-multinode-kubernetes-cluster-kubeadm"
 tags: ["kubernetes", "docker", "linux", "virtualbox", "kubeadm"]
 
