@@ -1,13 +1,13 @@
----
-title: "Unison: A Datastore migration library for Google Go"
-date: 2020-03-17T16:23:30Z
-slug: "unison-datastore-migration-go"
-tags: ["unison", "datastore", "go"]
++++
+title = "Unison: A Datastore migration library for Google Go"
+date = "2020-03-17"
+slug = "unison-datastore-migration-go"
+tags = ["unison", "datastore", "go"]
 
-description: "Unison is Go library for managing Google Datastore entity migrations"
+description = "Unison is Go library for managing Google Datastore entity migrations"
 
-backtotop: true
----
+backtotop = true
++++
 
 Unison is a lightweight library that allows you to version and manage your Datastore migrations. In this blog article we will have a look at how you can install the Unison command line tool and get started migrating entities to Datastore.
 
