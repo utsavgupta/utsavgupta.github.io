@@ -167,7 +167,5 @@ job := NewPreacher("go_preacher", os.Stdout)
 scheduler(ctx, job, 1 * time.Minute) // schedule the job every minute
 ```
 
-## Conclusion
-
 You are encouraged to play around with the working example available at [https://github.com/utsavgupta/go-leader-election](https://github.com/utsavgupta/go-leader-election). 
 
