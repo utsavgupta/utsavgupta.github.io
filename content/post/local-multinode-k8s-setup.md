@@ -1,14 +1,14 @@
-+++
-title = "Installing a multinode Kubernetes cluster using kubeadm"
-date = "2020-07-29"
-slug = "installing-multinode-kubernetes-cluster-kubeadm"
-tags = ["kubernetes", "docker", "linux", "virtualbox", "kubeadm"]
+---
+title: "Installing a multinode Kubernetes cluster using kubeadm"
+date: "2020-07-29"
+slug: "installing-multinode-kubernetes-cluster-kubeadm"
+tags: ["kubernetes", "docker", "linux", "virtualbox", "kubeadm"]
 
-description = "Learn how to setup a multinode Kubernetes cluster on you local machine using Virtual Box VMs and the kubeadm command."
+description: "Learn how to setup a multinode Kubernetes cluster on you local machine using Virtual Box VMs and the kubeadm command."
 
-toc = false
-backtotop = true
-+++
+toc: false
+backtotop: true
+---
 
 I have been playing around with Kubernetes in various settings for almost three years. Majority of it in production. Where the infrastructure was either setup and configured by experienced platform engineers, or it was hosted on Google as GKE clusters. My interaction with Kubernetes has been limited to mostly handling the deployments that I work on.
 
