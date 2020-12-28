@@ -1,126 +1,307 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><title>Installing a multinode Kubernetes cluster using kubeadm</title><meta name=description content="Learn how to setup a multinode Kubernetes cluster on you local machine using Virtual Box VMs and the kubeadm command."><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=alternate type=application/rss+xml href=https://utsavgupta.in/index.xml title="Utsav Gupta"><link id=dark-mode-theme rel=stylesheet href=https://utsavgupta.in/css/dark.css><link rel=stylesheet href=https://utsavgupta.in/css/custom.css><link rel=stylesheet href=https://utsavgupta.in/fontawesome/css/all.min.css><script src=https://utsavgupta.in/js/bundle.js></script><script src=https://utsavgupta.in/js/instantpage.js type=module defer></script><link rel=icon type=image/png href=/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=/favicon-16x16.png sizes=16x16><meta name=generator content="Hugo 0.74.3"></head><body><header><nav class=navbar><div class=nav><a href=https://utsavgupta.in/ class=nav-logo><img src=https://utsavgupta.in/img/logo.png width=50 height=50 alt=Logo></a><ul class=nav-links><li><a href=/about/ name=About><i class="fas fa-user fa-lg"></i></a></li><li><a href=/tags name=Tags><i class="fas fa-tag fa-lg"></i></a></li></ul></div></nav><div class=intro-header><div class=container><div class=post-heading><h1>Installing a multinode Kubernetes cluster using kubeadm</h1><span class=meta-post><i class="fa fa-calendar-alt"></i>&nbsp;Jul 29, 2020</span></div></div></div></header><div class=container role=main><article class=article class=blog-post><p>I have been playing around with Kubernetes in various settings for almost three years. Majority of it in production. Where the infrastructure was either setup and configured by experienced platform engineers, or it was hosted on Google as GKE clusters. My interaction with Kubernetes has been limited to mostly handling the deployments that I work on.</p><p>Recently I decided to start learning Kubernetes at a greater depth. So what better place to start than installing and configuring a multi node cluster on my laptop? To be honest, it took me a few attempts to get things working. For that reason I decided to create this blog post documenting the process as a tutorial. If you too are curious about setting up a Kubernetes playground on your laptop or PC, read along.</p><h3 id=before-we-begin>Before we begin</h3><p>For this tutorial we are going to install the Kubernetes nodes on VirtualBox virtual machines running Debian Buster. The steps would be slightly different for any other combination of hypervisior and guest operating system.</p><p>It is recommended that your system has sufficient memory and CPUs available that can be allocated to the virtual machines. The test cluster should work fine on a computer with a modest Intel Core i5 or AMD Ryzen processor as long as the host has enough free memory to share with the VMs.</p><h3 id=creating-the-vms-and-setting-up-the-network>Creating the VMs and setting up the network</h3><p>At the end of this tutorial we would like to have a Kubernetes cluster with a single control plane and two workers. That translates to three virtual machines. As for network interfaces: we would want to create a couple of them. First, a NAT adapter for the virtual machines to access the Internet. Second, a Host-Only interface for letting the the VMs communicate amongst each other and the host operating system. The following diagram gives an overview of how we plan to implement our network.</p><p align=center><img src=/img/k8s-nw-layout.png></p><p>Before you begin make sure that the VBoxManage is accessible from your shell. In case it isn&rsquo;t, update the PATH variable to include the path to your VirtualBox installation.</p><p>Let&rsquo;s start with creating the virtual machines.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>PS&gt; VBoxManage createvm --name k8smaster --ostype Linux_64 --register
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<title>Installing a multinode Kubernetes cluster using kubeadm</title>
+<meta name="description" content="Learn how to setup a multinode Kubernetes cluster on you local machine using Virtual Box VMs and the kubeadm command." />
+
+  
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="alternate" type="application/rss+xml" href="https://utsavgupta.in/index.xml" title="Utsav Gupta">
+
+<link id="dark-mode-theme" rel="stylesheet" href="https://utsavgupta.in/css/dark.css" />
+<link rel="stylesheet" href="https://utsavgupta.in/css/custom.css" />
+<link rel="stylesheet" href="https://utsavgupta.in/fontawesome/css/all.min.css" />
+
+<script src="https://utsavgupta.in/js/bundle.js"></script>
+<script src="https://utsavgupta.in/js/instantpage.js" type="module" defer></script>
+
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<meta name="generator" content="Hugo 0.74.3" />
+  </head>
+  <body>
+    
+  
+
+
+
+<header>
+  <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://utsavgupta.in/" class="nav-logo">
+      <img src="https://utsavgupta.in/img/logo.png"
+           width="50"
+           height="50"
+           alt="Logo">
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li><a href="/about/" name="About"><i class="fas fa-user fa-lg"></i></a></li>
+        
+      
+        
+          <li><a href="/tags" name="Tags"><i class="fas fa-tag fa-lg"></i></a></li>
+        
+      
+    </ul>
+  </div>
+</nav>
+
+  <div class="intro-header">
+    
+      <div class="container">
+        <div class="post-heading">
+          
+          <h1>Installing a multinode Kubernetes cluster using kubeadm</h1>
+          
+          
+            <span class="meta-post">
+  <i class="fa fa-calendar-alt"></i>&nbsp;Jul 29, 2020
+  
+</span>
+
+          
+        </div>
+      </div>
+    </div>
+    
+</header>
+
+    
+  <div class="container" role="main">
+    <article class="article" class="blog-post">
+      
+    <p>I have been playing around with Kubernetes in various settings for almost three years. Majority of it in production. Where the infrastructure was either setup and configured by experienced platform engineers, or it was hosted on Google as GKE clusters. My interaction with Kubernetes has been limited to mostly handling the deployments that I work on.</p>
+<p>Recently I decided to start learning Kubernetes at a greater depth. So what better place to start than installing and configuring a multi node cluster on my laptop? To be honest, it took me a few attempts to get things working. For that reason I decided to create this blog post documenting the process as a tutorial. If you too are curious about setting up a Kubernetes playground on your laptop or PC, read along.</p>
+<h3 id="before-we-begin">Before we begin</h3>
+<p>For this tutorial we are going to install the Kubernetes nodes on VirtualBox virtual machines running Debian Buster. The steps would be slightly different for any other combination of hypervisior and guest operating system.</p>
+<p>It is recommended that your system has sufficient memory and CPUs available that can be allocated to the virtual machines. The test cluster should work fine on a computer with a modest Intel Core i5 or AMD Ryzen processor as long as the host has enough free memory to share with the VMs.</p>
+<h3 id="creating-the-vms-and-setting-up-the-network">Creating the VMs and setting up the network</h3>
+<p>At the end of this tutorial we would like to have a Kubernetes cluster with a single control plane and two workers. That translates to three virtual machines. As for network interfaces: we would want to create a couple of them. First, a NAT adapter for the virtual machines to access the Internet. Second, a Host-Only interface for letting the the VMs communicate amongst each other and the host operating system. The following diagram gives an overview of how we plan to implement our network.</p>
+<p align="center">
+    <img src="/img/k8s-nw-layout.png">
+</p>
+<p>Before you begin make sure that the VBoxManage is accessible from your shell. In case it isn&rsquo;t, update the PATH variable to include the path to your VirtualBox installation.</p>
+<p>Let&rsquo;s start with creating the virtual machines.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">PS&gt; VBoxManage createvm --name k8smaster --ostype Linux_64 --register
 PS&gt; VBoxManage createvm --name k8snode1 --ostype Linux_64 --register
 PS&gt; VBoxManage createvm --name k8snode2 --ostype Linux_64 --register
-</code></pre></div><p>Each worker node will be allocated 1 cpu, 2 GB memory, and 12 MB video memory. The master will get 2 cpus and the other allocations remain unchanged.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>PS&gt; VBoxManage modifyvm k8smaster --cpus 2 --memory 2048 --vram 12
+</code></pre></div><p>Each worker node will be allocated 1 cpu, 2 GB memory, and 12 MB video memory. The master will get 2 cpus and the other allocations remain unchanged.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">PS&gt; VBoxManage modifyvm k8smaster --cpus 2 --memory 2048 --vram 12
 PS&gt; VBoxManage modifyvm k8snode1 --cpus 1 --memory 2048 --vram 12
 PS&gt; VBoxManage modifyvm k8snode2 --cpus 1 --memory 2048 --vram 12
-</code></pre></div><p>Next we need to create virtual disks that will be used for secondary storage by our virtual machines. We wil create three dynamic storage disks 10 GB each.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>PS&gt; VBoxManage createhd --filename <span style=color:#e6db74>&#39;D:\Virtual Machines\k8smaster.vdi&#39;</span> --size 10240 --variant Standard
-PS&gt; VBoxManage createhd --filename <span style=color:#e6db74>&#39;D:\Virtual Machines\k8snode1.vdi&#39;</span> --size 10240 --variant Standard
-PS&gt; VBoxManage createhd --filename <span style=color:#e6db74>&#39;D:\Virtual Machines\k8snode2.vdi&#39;</span> --size 10240 --variant Standard
-</code></pre></div><p>Before proceeding make sure to download the Debain installation image from <a href=https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-10.4.0-amd64-netinst.iso>here</a>.</p><p>Once you have downloaded the image on system, we can go ahead and configure the virtual machines to use the Debian disk image and the newly created virtual hard disk.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=color:#75715e># configure the master vm</span>
-PS&gt; VBoxManage storagectl k8smaster  --name <span style=color:#e6db74>&#34;SATA Controller&#34;</span> --add sata --bootable on
-PS&gt; VBoxManage storagectl k8smaster  --name <span style=color:#e6db74>&#34;IDE Controller&#34;</span> --add ide
-PS&gt; VBoxManage storageattach k8smaster --storagectl <span style=color:#e6db74>&#34;SATA Controller&#34;</span> --port 0 --device 0 --type hdd --medium <span style=color:#e6db74>&#34;D:\Virtual Machines\k8smaster.vdi&#34;</span>
-PS&gt; VBoxManage storageattach k8smaster --storagectl <span style=color:#e6db74>&#34;IDE Controller&#34;</span> --port 0 --device 0 --type dvddrive --medium <span style=color:#e6db74>&#34;D:\Downloads\debian-10.4.0-amd64-netinst.iso&#34;</span>
+</code></pre></div><p>Next we need to create virtual disks that will be used for secondary storage by our virtual machines. We wil create three dynamic storage disks 10 GB each.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">PS&gt; VBoxManage createhd --filename <span style="color:#e6db74">&#39;D:\Virtual Machines\k8smaster.vdi&#39;</span> --size 10240 --variant Standard
+PS&gt; VBoxManage createhd --filename <span style="color:#e6db74">&#39;D:\Virtual Machines\k8snode1.vdi&#39;</span> --size 10240 --variant Standard
+PS&gt; VBoxManage createhd --filename <span style="color:#e6db74">&#39;D:\Virtual Machines\k8snode2.vdi&#39;</span> --size 10240 --variant Standard
+</code></pre></div><p>Before proceeding make sure to download the Debain installation image from <a href="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-10.4.0-amd64-netinst.iso">here</a>.</p>
+<p>Once you have downloaded the image on system, we can go ahead and configure the virtual machines to use the Debian disk image and the newly created virtual hard disk.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell"><span style="color:#75715e"># configure the master vm</span>
+PS&gt; VBoxManage storagectl k8smaster  --name <span style="color:#e6db74">&#34;SATA Controller&#34;</span> --add sata --bootable on
+PS&gt; VBoxManage storagectl k8smaster  --name <span style="color:#e6db74">&#34;IDE Controller&#34;</span> --add ide
+PS&gt; VBoxManage storageattach k8smaster --storagectl <span style="color:#e6db74">&#34;SATA Controller&#34;</span> --port 0 --device 0 --type hdd --medium <span style="color:#e6db74">&#34;D:\Virtual Machines\k8smaster.vdi&#34;</span>
+PS&gt; VBoxManage storageattach k8smaster --storagectl <span style="color:#e6db74">&#34;IDE Controller&#34;</span> --port 0 --device 0 --type dvddrive --medium <span style="color:#e6db74">&#34;D:\Downloads\debian-10.4.0-amd64-netinst.iso&#34;</span>
 
-<span style=color:#75715e># configure node1 vm</span>
-PS&gt; VBoxManage storagectl k8snode1  --name <span style=color:#e6db74>&#34;SATA Controller&#34;</span> --add sata --bootable on
-PS&gt; VBoxManage storagectl k8snode1  --name <span style=color:#e6db74>&#34;IDE Controller&#34;</span> --add ide
-PS&gt; VBoxManage storageattach k8snode1 --storagectl <span style=color:#e6db74>&#34;SATA Controller&#34;</span> --port 0 --device 0 --type hdd --medium <span style=color:#e6db74>&#34;D:\Virtual Machines\k8snode1.vdi&#34;</span>
-PS&gt; VBoxManage storageattach k8snode1 --storagectl <span style=color:#e6db74>&#34;IDE Controller&#34;</span> --port 0 --device 0 --type dvddrive --medium <span style=color:#e6db74>&#34;D:\Downloads\debian-10.4.0-amd64-netinst.iso&#34;</span>
+<span style="color:#75715e"># configure node1 vm</span>
+PS&gt; VBoxManage storagectl k8snode1  --name <span style="color:#e6db74">&#34;SATA Controller&#34;</span> --add sata --bootable on
+PS&gt; VBoxManage storagectl k8snode1  --name <span style="color:#e6db74">&#34;IDE Controller&#34;</span> --add ide
+PS&gt; VBoxManage storageattach k8snode1 --storagectl <span style="color:#e6db74">&#34;SATA Controller&#34;</span> --port 0 --device 0 --type hdd --medium <span style="color:#e6db74">&#34;D:\Virtual Machines\k8snode1.vdi&#34;</span>
+PS&gt; VBoxManage storageattach k8snode1 --storagectl <span style="color:#e6db74">&#34;IDE Controller&#34;</span> --port 0 --device 0 --type dvddrive --medium <span style="color:#e6db74">&#34;D:\Downloads\debian-10.4.0-amd64-netinst.iso&#34;</span>
 
-<span style=color:#75715e># configure node2 vm</span>
-PS&gt; VBoxManage storagectl k8snode2  --name <span style=color:#e6db74>&#34;SATA Controller&#34;</span> --add sata --bootable on
-PS&gt; VBoxManage storagectl k8snode2  --name <span style=color:#e6db74>&#34;IDE Controller&#34;</span> --add ide
-PS&gt; VBoxManage storageattach k8snode2 --storagectl <span style=color:#e6db74>&#34;SATA Controller&#34;</span> --port 0 --device 0 --type hdd --medium <span style=color:#e6db74>&#34;D:\Virtual Machines\k8snode2.vdi&#34;</span>
-PS&gt; VBoxManage storageattach k8snode2 --storagectl <span style=color:#e6db74>&#34;IDE Controller&#34;</span> --port 0 --device 0 --type dvddrive --medium <span style=color:#e6db74>&#34;D:\Downloads\debian-10.4.0-amd64-netinst.iso&#34;</span>
-</code></pre></div><p>That leaves us only with the network configuration. When you create a new virtual machine on VirtualBox, by default nic1 is configured to use a NAT adapter. You can verify this by running <code>VBoxManage showvminfo &lt;vmname> | grep "NIC 1"</code>.</p><p>The last step in our setup is to configure the host only interface for internal communication. Before we do so, we need to decide the ip ranges for the network. We can use the IP range <code>10.10.0.1/16</code> on this network interface. The master and the two worker vms can be assigned IPs <code>10.10.0.2</code>, <code>10.10.0.3</code>, and <code>10.10.0.4</code> respectively. We also need to define a subnet for our pods. For which we can use <code>10.10.128.1/17</code>. This subnet will be required later when we configure the CNI.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>PS&gt; VBoxManage hostonlyif create
+<span style="color:#75715e"># configure node2 vm</span>
+PS&gt; VBoxManage storagectl k8snode2  --name <span style="color:#e6db74">&#34;SATA Controller&#34;</span> --add sata --bootable on
+PS&gt; VBoxManage storagectl k8snode2  --name <span style="color:#e6db74">&#34;IDE Controller&#34;</span> --add ide
+PS&gt; VBoxManage storageattach k8snode2 --storagectl <span style="color:#e6db74">&#34;SATA Controller&#34;</span> --port 0 --device 0 --type hdd --medium <span style="color:#e6db74">&#34;D:\Virtual Machines\k8snode2.vdi&#34;</span>
+PS&gt; VBoxManage storageattach k8snode2 --storagectl <span style="color:#e6db74">&#34;IDE Controller&#34;</span> --port 0 --device 0 --type dvddrive --medium <span style="color:#e6db74">&#34;D:\Downloads\debian-10.4.0-amd64-netinst.iso&#34;</span>
+</code></pre></div><p>That leaves us only with the network configuration. When you create a new virtual machine on VirtualBox, by default nic1 is configured to use a NAT adapter. You can verify this by running <code>VBoxManage showvminfo &lt;vmname&gt; | grep &quot;NIC 1&quot;</code>.</p>
+<p>The last step in our setup is to configure the host only interface for internal communication. Before we do so, we need to decide the ip ranges for the network. We can use the IP range <code>10.10.0.1/16</code> on this network interface. The master and the two worker vms can be assigned IPs <code>10.10.0.2</code>, <code>10.10.0.3</code>, and <code>10.10.0.4</code> respectively. We also need to define a subnet for our pods. For which we can use <code>10.10.128.1/17</code>. This subnet will be required later when we configure the CNI.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">PS&gt; VBoxManage hostonlyif create
 ...
-Interface <span style=color:#e6db74>&#39;VirtualBox Host-Only Ethernet Adapter #5&#39;</span> was successfully created
+Interface <span style="color:#e6db74">&#39;VirtualBox Host-Only Ethernet Adapter #5&#39;</span> was successfully created
 ...
 
-PS&gt; VBoxManage hostonlyif ipconfig <span style=color:#e6db74>&#34;VirtualBox Host-Only Ethernet Adapter #5&#34;</span> --ip 10.10.0.1 --netmask 255.255.0.0
+PS&gt; VBoxManage hostonlyif ipconfig <span style="color:#e6db74">&#34;VirtualBox Host-Only Ethernet Adapter #5&#34;</span> --ip 10.10.0.1 --netmask 255.255.0.0
 
-<span style=color:#75715e># configure the vms to use the nic</span>
-PS&gt; VBoxManage modifyvm k8smaster --nic2 hostonly --hostonlyadapter1 <span style=color:#e6db74>&#34;VirtualBox Host-Only Ethernet Adapter #5&#34;</span>
-PS&gt; VBoxManage modifyvm k8snode1 --nic2 hostonly --hostonlyadapter1 <span style=color:#e6db74>&#34;VirtualBox Host-Only Ethernet Adapter #5&#34;</span>
-PS&gt; VBoxManage modifyvm k8snode2 --nic2 hostonly --hostonlyadapter1 <span style=color:#e6db74>&#34;VirtualBox Host-Only Ethernet Adapter #5&#34;</span>
-</code></pre></div><h3 id=installing-and-configuring-the-operating-system>Installing and configuring the operating system</h3><p>We are now ready to install the operating system on our virtual machines. Fire up the vms with the following commands.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell>PS&gt; VBoxManage startvm k8smaster
+<span style="color:#75715e"># configure the vms to use the nic</span>
+PS&gt; VBoxManage modifyvm k8smaster --nic2 hostonly --hostonlyadapter1 <span style="color:#e6db74">&#34;VirtualBox Host-Only Ethernet Adapter #5&#34;</span>
+PS&gt; VBoxManage modifyvm k8snode1 --nic2 hostonly --hostonlyadapter1 <span style="color:#e6db74">&#34;VirtualBox Host-Only Ethernet Adapter #5&#34;</span>
+PS&gt; VBoxManage modifyvm k8snode2 --nic2 hostonly --hostonlyadapter1 <span style="color:#e6db74">&#34;VirtualBox Host-Only Ethernet Adapter #5&#34;</span>
+</code></pre></div><h3 id="installing-and-configuring-the-operating-system">Installing and configuring the operating system</h3>
+<p>We are now ready to install the operating system on our virtual machines. Fire up the vms with the following commands.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">PS&gt; VBoxManage startvm k8smaster
 PS&gt; VBoxManage startvm k8snode1
 PS&gt; VBoxManage startvm k8snode2
-</code></pre></div><p>Select the second option from the list, <strong>Install</strong>.</p><p>Choose your preferred language and location settings.</p><p>In the next screen you&rsquo;ll be asked to select your preferred network interface. Select <strong>enp0s3</strong>. This will give the installer access to the internet for pulling the missing packages.</p><p>For the host names, let&rsquo;s assign them <code>k8smaster</code>, <code>k8snode1</code>, and <code>k8snode2</code> respectively. We can put all the VMs in a domain named <code>kubernetest</code>.</p><p>After setting the root password. The installer will ask you to create a new user. We will be using this new user to SSH into the nodes.</p><p>Next you&rsquo;ll be asked to configure your storage medium, and specify a mount point the file system. Either you can select the guided option or you can manually create a partition for the file system. In case you do it manually, do not create a swap partition. This would anyway need to be turned off before we can bootstrap Kubernetes. However, if you select the guided mode don&rsquo;t worry we can turn off swap usage later.</p><p>In the software selection page, select only <strong>SSH server</strong> and <strong>Standard system utilities</strong>. We do not need a desktop environment for any of the virtual machines.</p><p>Once the installation completes you&rsquo;ll be asked to confirm the master boot record. Select <strong>/dev/sda</strong> from the list and complete installation.</p><h3 id=configuring-the-operating-system>Configuring the operating system</h3><p>Congratulations! You have successfully installed Debian on all three virtual machines. Login to the machines with root credentials to install a few utilities that will be required to complete the setup.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>root@&lt;vm-hostname&gt;:~$ apt-get update <span style=color:#f92672>&amp;&amp;</span> apt-get install -y sudo curl gnupg net-tools
+</code></pre></div><p>Select the second option from the list, <strong>Install</strong>.</p>
+<p>Choose your preferred language and location settings.</p>
+<p>In the next screen you&rsquo;ll be asked to select your preferred network interface. Select <strong>enp0s3</strong>. This will give the installer access to the internet for pulling the missing packages.</p>
+<p>For the host names, let&rsquo;s assign them <code>k8smaster</code>, <code>k8snode1</code>, and <code>k8snode2</code> respectively. We can put all the VMs in a domain named <code>kubernetest</code>.</p>
+<p>After setting the root password. The installer will ask you to create a new user. We will be using this new user to SSH into the nodes.</p>
+<p>Next you&rsquo;ll be asked to configure your storage medium, and specify a mount point the file system. Either you can select the guided option or you can manually create a partition for the file system. In case you do it manually, do not create a swap partition. This would anyway need to be turned off before we can bootstrap Kubernetes. However, if you select the guided mode don&rsquo;t worry we can turn off swap usage later.</p>
+<p>In the software selection page, select only <strong>SSH server</strong> and <strong>Standard system utilities</strong>. We do not need a desktop environment for any of the virtual machines.</p>
+<p>Once the installation completes you&rsquo;ll be asked to confirm the master boot record. Select <strong>/dev/sda</strong> from the list and complete installation.</p>
+<h3 id="configuring-the-operating-system">Configuring the operating system</h3>
+<p>Congratulations! You have successfully installed Debian on all three virtual machines. Login to the machines with root credentials to install a few utilities that will be required to complete the setup.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@&lt;vm-hostname&gt;:~$ apt-get update <span style="color:#f92672">&amp;&amp;</span> apt-get install -y sudo curl gnupg net-tools
 
-<span style=color:#75715e># add your user to the list of sudoers</span>
+<span style="color:#75715e"># add your user to the list of sudoers</span>
 root@&lt;vm-hostname&gt;:~$ usermod -aG sudo &lt;username&gt;
-</code></pre></div><p>We are left with making the machines acquire IPs on the host only interface. For this we will have to make the following entries to <code>/etc/network/interfaces</code>.</p><pre><code>auto enp0s8
+</code></pre></div><p>We are left with making the machines acquire IPs on the host only interface. For this we will have to make the following entries to <code>/etc/network/interfaces</code>.</p>
+<pre><code>auto enp0s8
 iface enp0s8 inet static
 address 10.10.0.X # where X=2 for k8smaster, 3 for k8snode1, and 4 for k8snode2
 network 10.10.0.1
 netmask 255.255.0.0
-</code></pre><p>You can now restart your networking services and verify the changes using <code>ifconfig</code>.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>root@&lt;vm-hostname&gt;:~$ systemctl restart networking
+</code></pre><p>You can now restart your networking services and verify the changes using <code>ifconfig</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@&lt;vm-hostname&gt;:~$ systemctl restart networking
 root@&lt;vm-hostname&gt;:~$ ifconfig
 ...
-enp0s8: flags<span style=color:#f92672>=</span>4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span style=color:#ae81ff>1500</span>
+enp0s8: flags<span style="color:#f92672">=</span>4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span style="color:#ae81ff">1500</span>
         inet 10.10.0.X  netmask 255.255.0.0  broadcast 10.10.255.255
-        inet6 ...  prefixlen <span style=color:#ae81ff>64</span>  scopeid 0x20&lt;link&gt;
-        ether ...  txqueuelen <span style=color:#ae81ff>1000</span>  <span style=color:#f92672>(</span>Ethernet<span style=color:#f92672>)</span>
-        RX packets <span style=color:#ae81ff>119</span>  bytes <span style=color:#ae81ff>11191</span> <span style=color:#f92672>(</span>10.9 KiB<span style=color:#f92672>)</span>
-        RX errors <span style=color:#ae81ff>0</span>  dropped <span style=color:#ae81ff>0</span>  overruns <span style=color:#ae81ff>0</span>  frame <span style=color:#ae81ff>0</span>
-        TX packets <span style=color:#ae81ff>98</span>  bytes <span style=color:#ae81ff>11925</span> <span style=color:#f92672>(</span>11.6 KiB<span style=color:#f92672>)</span>
-        TX errors <span style=color:#ae81ff>0</span>  dropped <span style=color:#ae81ff>0</span> overruns <span style=color:#ae81ff>0</span>  carrier <span style=color:#ae81ff>0</span>  collisions <span style=color:#ae81ff>0</span>
+        inet6 ...  prefixlen <span style="color:#ae81ff">64</span>  scopeid 0x20&lt;link&gt;
+        ether ...  txqueuelen <span style="color:#ae81ff">1000</span>  <span style="color:#f92672">(</span>Ethernet<span style="color:#f92672">)</span>
+        RX packets <span style="color:#ae81ff">119</span>  bytes <span style="color:#ae81ff">11191</span> <span style="color:#f92672">(</span>10.9 KiB<span style="color:#f92672">)</span>
+        RX errors <span style="color:#ae81ff">0</span>  dropped <span style="color:#ae81ff">0</span>  overruns <span style="color:#ae81ff">0</span>  frame <span style="color:#ae81ff">0</span>
+        TX packets <span style="color:#ae81ff">98</span>  bytes <span style="color:#ae81ff">11925</span> <span style="color:#f92672">(</span>11.6 KiB<span style="color:#f92672">)</span>
+        TX errors <span style="color:#ae81ff">0</span>  dropped <span style="color:#ae81ff">0</span> overruns <span style="color:#ae81ff">0</span>  carrier <span style="color:#ae81ff">0</span>  collisions <span style="color:#ae81ff">0</span>
 ...
-</code></pre></div><p>That completes the setup of the environment. We can now focus on installing Docker and Kubernetes. You can now reboot all three virtual machines and login into them using SSH from your host terminal.</p><h3 id=installing-docker-and-kubernetes>Installing Docker and Kubernetes</h3><p>We will be installing both pieces of software from their official repositories.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e># download and add gpg keys</span>
+</code></pre></div><p>That completes the setup of the environment. We can now focus on installing Docker and Kubernetes. You can now reboot all three virtual machines and login into them using SSH from your host terminal.</p>
+<h3 id="installing-docker-and-kubernetes">Installing Docker and Kubernetes</h3>
+<p>We will be installing both pieces of software from their official repositories.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># download and add gpg keys</span>
 &lt;user&gt;@&lt;vm-hostname&gt;~$ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 &lt;user&gt;@&lt;vm-hostname&gt;~$ curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 
-<span style=color:#75715e># add repository details to the list of apt sources</span>
-&lt;user&gt;@&lt;vm-hostname&gt;~$ cat <span style=color:#e6db74>&lt;&lt;EOF | sudo tee /etc/apt/sources.list.d/docker.list
-</span><span style=color:#e6db74>deb [arch=amd64] https://download.docker.com/linux/debian buster stable
-</span><span style=color:#e6db74>EOF</span>
-&lt;user&gt;@&lt;vm-hostname&gt;~$ cat <span style=color:#e6db74>&lt;&lt;EOF | sudo tee /etc/apt/sources.list.d/k8s.list
-</span><span style=color:#e6db74>deb [arch=amd64] https://apt.kubernetes.io/ kubernetes-xenial main
-</span><span style=color:#e6db74>EOF</span>
+<span style="color:#75715e"># add repository details to the list of apt sources</span>
+&lt;user&gt;@&lt;vm-hostname&gt;~$ cat <span style="color:#e6db74">&lt;&lt;EOF | sudo tee /etc/apt/sources.list.d/docker.list
+</span><span style="color:#e6db74">deb [arch=amd64] https://download.docker.com/linux/debian buster stable
+</span><span style="color:#e6db74">EOF</span>
+&lt;user&gt;@&lt;vm-hostname&gt;~$ cat <span style="color:#e6db74">&lt;&lt;EOF | sudo tee /etc/apt/sources.list.d/k8s.list
+</span><span style="color:#e6db74">deb [arch=amd64] https://apt.kubernetes.io/ kubernetes-xenial main
+</span><span style="color:#e6db74">EOF</span>
 
-<span style=color:#75715e># install docker and kubernetes</span>
-&lt;user&gt;@&lt;vm-hostname&gt;~$ sudo apt-get update <span style=color:#f92672>&amp;&amp;</span> sudo apt-get install -y docker-ce docker-ce-cli containerd.io kubeadm kubectl kubelet
-</code></pre></div><h3 id=bootstrapping-the-cluster>Bootstrapping the cluster</h3><p>Now our virtual machines are ready to be bootstrapped with kubeadm. First, we need to set up the control plane on the k8smaster virtual machine. Then we will make the other two vms join the cluster as workers.</p><p>In case you have not disabled swap already, you can do it now with the following command.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>&lt;user&gt;@&lt;vm-hostname&gt;~$ sudo swapoff -a
-</code></pre></div><p>We will execute <code>kubeadm init</code> to create the control plane on the k8smaster after which we shall install <code>calico</code> as our CNI.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>&lt;user&gt;@k8smaster~$ sudo kubeadm init --apiserver-advertise-address<span style=color:#f92672>=</span>10.10.0.2 --pod-network-cidr<span style=color:#f92672>=</span>10.10.128.1/17
+<span style="color:#75715e"># install docker and kubernetes</span>
+&lt;user&gt;@&lt;vm-hostname&gt;~$ sudo apt-get update <span style="color:#f92672">&amp;&amp;</span> sudo apt-get install -y docker-ce docker-ce-cli containerd.io kubeadm kubectl kubelet
+</code></pre></div><h3 id="bootstrapping-the-cluster">Bootstrapping the cluster</h3>
+<p>Now our virtual machines are ready to be bootstrapped with kubeadm. First, we need to set up the control plane on the k8smaster virtual machine. Then we will make the other two vms join the cluster as workers.</p>
+<p>In case you have not disabled swap already, you can do it now with the following command.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&lt;user&gt;@&lt;vm-hostname&gt;~$ sudo swapoff -a
+</code></pre></div><p>We will execute <code>kubeadm init</code> to create the control plane on the k8smaster after which we shall install <code>calico</code> as our CNI.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&lt;user&gt;@k8smaster~$ sudo kubeadm init --apiserver-advertise-address<span style="color:#f92672">=</span>10.10.0.2 --pod-network-cidr<span style="color:#f92672">=</span>10.10.128.1/17
 ...
 
 To start using your cluster, you need to run the following as a regular user:
 
   mkdir -p $HOME/.kube
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  sudo chown <span style=color:#66d9ef>$(</span>id -u<span style=color:#66d9ef>)</span>:<span style=color:#66d9ef>$(</span>id -g<span style=color:#66d9ef>)</span> $HOME/.kube/config
+  sudo chown <span style="color:#66d9ef">$(</span>id -u<span style="color:#66d9ef">)</span>:<span style="color:#66d9ef">$(</span>id -g<span style="color:#66d9ef">)</span> $HOME/.kube/config
 
 Then you can join any number of worker nodes by running the following on each as root:
 
-kubeadm join 10.10.0.2:6443 --token 8rgorl.4h52rlf8rau2jxq7 <span style=color:#ae81ff>\
-</span><span style=color:#ae81ff></span>    --discovery-token-ca-cert-hash sha256:39fa02d151ad3d1ded96956060663ca893ece4cc0e1212b58ae1c417afd30c1d
-</code></pre></div><p>Copy the <code>admin.conf</code> file to your home directory as shown in the output above. Make a note of the token and the certificate hash displayed by the above command. We will need those to make the other virtual machines join the cluster. But before we do that, let&rsquo;s install our CNI.</p><p>We will download the manifest file from the official website of calico and then make changes to it in order to include our new network settings.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>&lt;user&gt;@k8smaster~$ wget https://docs.projectcalico.org/v3.14/manifests/calico.yaml
-</code></pre></div><p>Modify the value of <code>CALICO_IPV4POOL_CIDR</code> to <code>10.10.128.1/17</code>. Once done save the file and apply the manifest.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>&lt;user&gt;@k8smaster~$ kubectl apply -f calico.yaml
+kubeadm join 10.10.0.2:6443 --token 8rgorl.4h52rlf8rau2jxq7 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --discovery-token-ca-cert-hash sha256:39fa02d151ad3d1ded96956060663ca893ece4cc0e1212b58ae1c417afd30c1d
+</code></pre></div><p>Copy the <code>admin.conf</code> file to your home directory as shown in the output above. Make a note of the token and the certificate hash displayed by the above command. We will need those to make the other virtual machines join the cluster. But before we do that, let&rsquo;s install our CNI.</p>
+<p>We will download the manifest file from the official website of calico and then make changes to it in order to include our new network settings.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&lt;user&gt;@k8smaster~$ wget https://docs.projectcalico.org/v3.14/manifests/calico.yaml
+</code></pre></div><p>Modify the value of <code>CALICO_IPV4POOL_CIDR</code> to <code>10.10.128.1/17</code>. Once done save the file and apply the manifest.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&lt;user&gt;@k8smaster~$ kubectl apply -f calico.yaml
 
-<span style=color:#75715e># verify that the calico nodes are up and running</span>
+<span style="color:#75715e"># verify that the calico nodes are up and running</span>
 &lt;user&gt;@k8smaster~$ kubectl get pods -n kube-system
 NAME                                       READY   STATUS    RESTARTS   AGE
-calico-kube-controllers-76d4774d89-fn5pr   1/1     Running   <span style=color:#ae81ff>0</span>          3m2s
-calico-node-z8bs5                          1/1     Running   <span style=color:#ae81ff>0</span>          3m2s
-coredns-66bff467f8-ckq26                   1/1     Running   <span style=color:#ae81ff>0</span>          25m
-coredns-66bff467f8-k8r2b                   1/1     Running   <span style=color:#ae81ff>0</span>          25m
-etcd-k8smaster                             1/1     Running   <span style=color:#ae81ff>0</span>          26m
-kube-apiserver-k8smaster                   1/1     Running   <span style=color:#ae81ff>0</span>          26m
-kube-controller-manager-k8smaster          1/1     Running   <span style=color:#ae81ff>0</span>          26m
-kube-proxy-8bvfz                           1/1     Running   <span style=color:#ae81ff>0</span>          25m
-kube-scheduler-k8smaster                   1/1     Running   <span style=color:#ae81ff>0</span>          26m
-</code></pre></div><p>You can now switch to the other two virtual machines and run the following command to join the cluster. (Turn off swap in the other VMs if you have not done it already)</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e># join the cluster from node 1</span>
+calico-kube-controllers-76d4774d89-fn5pr   1/1     Running   <span style="color:#ae81ff">0</span>          3m2s
+calico-node-z8bs5                          1/1     Running   <span style="color:#ae81ff">0</span>          3m2s
+coredns-66bff467f8-ckq26                   1/1     Running   <span style="color:#ae81ff">0</span>          25m
+coredns-66bff467f8-k8r2b                   1/1     Running   <span style="color:#ae81ff">0</span>          25m
+etcd-k8smaster                             1/1     Running   <span style="color:#ae81ff">0</span>          26m
+kube-apiserver-k8smaster                   1/1     Running   <span style="color:#ae81ff">0</span>          26m
+kube-controller-manager-k8smaster          1/1     Running   <span style="color:#ae81ff">0</span>          26m
+kube-proxy-8bvfz                           1/1     Running   <span style="color:#ae81ff">0</span>          25m
+kube-scheduler-k8smaster                   1/1     Running   <span style="color:#ae81ff">0</span>          26m
+</code></pre></div><p>You can now switch to the other two virtual machines and run the following command to join the cluster. (Turn off swap in the other VMs if you have not done it already)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># join the cluster from node 1</span>
 &lt;user&gt;@k8snode1~$ sudo kubeadm join 10.10.0.2:6443 --token &lt;token&gt;  --discovery-token-ca-cert-hash sha256:&lt;hash&gt;
 
-<span style=color:#75715e># join the cluster from node 2</span>
+<span style="color:#75715e"># join the cluster from node 2</span>
 &lt;user&gt;@k8snode2~$ sudo kubeadm join 10.10.0.2:6443 --token &lt;token&gt;  --discovery-token-ca-cert-hash sha256:&lt;hash&gt;
-</code></pre></div><h3 id=making-our-first-deployment>Making our first deployment</h3><p>Now we are ready to make our first deployment on our cluster.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>&lt;user&gt;@k8smaster~$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/controllers/nginx-deployment.yaml
+</code></pre></div><h3 id="making-our-first-deployment">Making our first deployment</h3>
+<p>Now we are ready to make our first deployment on our cluster.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&lt;user&gt;@k8smaster~$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/controllers/nginx-deployment.yaml
 
 &lt;user&gt;@k8smaster~$ kubectl get pods -o wide
 NAME                                READY   STATUS    RESTARTS   AGE   IP              NODE       NOMINATED NODE   READINESS GATES
-nginx-deployment-6b474476c4-7z47l   1/1     Running   <span style=color:#ae81ff>0</span>          60s   10.10.181.2     k8snode2   &lt;none&gt;           &lt;none&gt;
-nginx-deployment-6b474476c4-ddgwc   1/1     Running   <span style=color:#ae81ff>0</span>          60s   10.10.130.129   k8snode1   &lt;none&gt;           &lt;none&gt;
-nginx-deployment-6b474476c4-r7hn2   1/1     Running   <span style=color:#ae81ff>0</span>          60s   10.10.181.1     k8snode2   &lt;none&gt;           &lt;none&gt;
-</code></pre></div><p>And that&rsquo;s it. You have successfully deployed your first application on a Kubernetes cluster that you created from scratch.</p><p>That concludes the tutorial. I plan to write more blog posts on Kubernetes and other workload orchestration tools as I progress on this journey.</p><div class=blog-tags><a href=https://utsavgupta.in//tags/kubernetes/>kubernetes</a>&nbsp;
-<a href=https://utsavgupta.in//tags/docker/>docker</a>&nbsp;
-<a href=https://utsavgupta.in//tags/linux/>linux</a>&nbsp;
-<a href=https://utsavgupta.in//tags/virtualbox/>virtualbox</a>&nbsp;
-<a href=https://utsavgupta.in//tags/kubeadm/>kubeadm</a>&nbsp;</div></article><script>document.addEventListener('scroll',function(){if(document.body.scrollTop>50||document.documentElement.scrollTop>50){document.getElementById('backtotopButton').style.opacity="1";document.getElementById('backtotopButton').style.transition="0.5s";}else{document.getElementById('backtotopButton').style.opacity="0";document.getElementById('backtotopButton').style.transition="0.5s";}});function topFunction(){document.body.scrollTop=0;document.documentElement.scrollTop=0;}</script><button onclick=topFunction() id=backtotopButton>
-<i class="fa fa-angle-up"></i></button></div><footer><div class=container><p class="credits copyright"><a href=https://utsavgupta.in/about>Utsav Gupta</a>
-&nbsp;&copy;
-2020
-&nbsp;&ndash;&nbsp;
-<i class="fas fa-moon" id=dark-mode-toggle></i><p class="credits theme-by">Powered By <a href=https://gohugo.io>Hugo</a>&nbsp;Theme <a href=https://github.com/matsuyoshi30/harbor>Harbor</a>. Hosted on <a href=https://www.netlify.com/>Netlify</a>.<br><a href=https://utsavgupta.in/privacy>Privacy Policy</a>.</p></p></div></footer></body></html>
+nginx-deployment-6b474476c4-7z47l   1/1     Running   <span style="color:#ae81ff">0</span>          60s   10.10.181.2     k8snode2   &lt;none&gt;           &lt;none&gt;
+nginx-deployment-6b474476c4-ddgwc   1/1     Running   <span style="color:#ae81ff">0</span>          60s   10.10.130.129   k8snode1   &lt;none&gt;           &lt;none&gt;
+nginx-deployment-6b474476c4-r7hn2   1/1     Running   <span style="color:#ae81ff">0</span>          60s   10.10.181.1     k8snode2   &lt;none&gt;           &lt;none&gt;
+</code></pre></div><p>And that&rsquo;s it. You have successfully deployed your first application on a Kubernetes cluster that you created from scratch.</p>
+<p>That concludes the tutorial. I plan to write more blog posts on Kubernetes and other workload orchestration tools as I progress on this journey.</p>
+
+
+
+      
+        <div class="blog-tags">
+          
+            <a href="https://utsavgupta.in//tags/kubernetes/">kubernetes</a>&nbsp;
+          
+            <a href="https://utsavgupta.in//tags/docker/">docker</a>&nbsp;
+          
+            <a href="https://utsavgupta.in//tags/linux/">linux</a>&nbsp;
+          
+            <a href="https://utsavgupta.in//tags/virtualbox/">virtualbox</a>&nbsp;
+          
+            <a href="https://utsavgupta.in//tags/kubeadm/">kubeadm</a>&nbsp;
+          
+        </div>
+      
+    </article>
+    
+      <script>
+    document.addEventListener('scroll', function() {
+        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+            document.getElementById('backtotopButton').style.opacity = "1";
+            document.getElementById('backtotopButton').style.transition = "0.5s";
+        } else {
+            document.getElementById('backtotopButton').style.opacity = "0";
+            document.getElementById('backtotopButton').style.transition = "0.5s";
+        }
+    });
+
+    function topFunction() {
+        document.body.scrollTop = 0;            
+        document.documentElement.scrollTop = 0; 
+    }
+</script>
+      <button onclick="topFunction()" id="backtotopButton">
+        <i class="fa fa-angle-up"></i>
+      </button>
+    
+    
+  </div>
+
+    <footer>
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://utsavgupta.in/about">Utsav Gupta</a>
+      &nbsp;&copy;
+      2020
+
+      &nbsp;&ndash;&nbsp;
+      <i class="fas fa-moon" id="dark-mode-toggle"></i>
+
+      <p class="credits theme-by">
+        Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;Theme <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>. Hosted on <a href="https://www.netlify.com/">Netlify</a>.<br />
+        <a href="https://utsavgupta.in/privacy">Privacy Policy</a>.
+      </p>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>
