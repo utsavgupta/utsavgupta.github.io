@@ -1,0 +1,132 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><title>Unison: A Datastore migration library for Google Go</title><meta name=description content="Unison is Go library for managing Google Datastore entity migrations."><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=alternate type=application/rss+xml href=https://utsavgupta.in/index.xml title="Utsav Gupta"><link id=dark-mode-theme rel=stylesheet href=https://utsavgupta.in/css/dark.css><link rel=stylesheet href=https://utsavgupta.in/css/custom.css><link rel=stylesheet href=https://utsavgupta.in/fontawesome/css/all.min.css><script src=https://utsavgupta.in/js/bundle.js></script><script src=https://utsavgupta.in/js/instantpage.js type=module defer></script><link rel=icon type=image/png href=/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=/favicon-16x16.png sizes=16x16><meta name=generator content="Hugo 0.74.3"></head><body><header><nav class=navbar><div class=nav><a href=https://utsavgupta.in/ class=nav-logo><img src=https://utsavgupta.in/img/logo.png width=50 height=50 alt=Logo></a><ul class=nav-links><li><a href=/about/ name=About><i class="fas fa-user fa-lg"></i></a></li><li><a href=/tags name=Tags><i class="fas fa-tag fa-lg"></i></a></li></ul></div></nav><div class=intro-header><div class=container><div class=post-heading><h1>Unison: A Datastore migration library for Google Go</h1><span class=meta-post><i class="fa fa-calendar-alt"></i>&nbsp;Mar 17, 2020</span></div></div></div></header><div class=container role=main><article class=article class=blog-post><p>Unison is a lightweight library that allows you to version and manage your Datastore migrations. In this blog article we will have a look at how you can install the Unison command line tool and get started migrating entities to Datastore.</p><p><em>Note: At the time of writing this article the library was not compatible with Google Firestore.</em></p><p><em>Before we begin, the article assumes that you have Google Go installed on your computer. In case you do not have it installed, <a href=https://golang.org/dl/>click here</a> to grab an installer for your operating system.</em></p><p>The go-unison project comprises two packages, viz, unison and unisoner. The first is the library that you will use to migrate your scripts, while the latter is a command line tool that lets you generate new migration scripts.</p><p>Let&rsquo;s start with creating a migration script that migrates some delicious fruits to Datastore. Run the following commands to set up your project.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ mkdir goapp
+$ cd goapp
+goapp $ go mod init goapp
+goapp $ go get cloud.google.com/go/datastore
+goapp $ mkdir ent
+goapp $ touch ent/fruit.go
+goapp $ touch main.go
+</code></pre></div><p>The <code>ent/fruit.go</code> file should contain the serializable Datastore entity structure as follows.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#f92672>package</span> <span style=color:#a6e22e>ent</span>
+
+<span style=color:#66d9ef>type</span> <span style=color:#a6e22e>Fruit</span> <span style=color:#66d9ef>struct</span> {
+    <span style=color:#a6e22e>ID</span>   <span style=color:#66d9ef>string</span> <span style=color:#e6db74>`datastore:&#34;id&#34;`</span>
+    <span style=color:#a6e22e>Name</span> <span style=color:#66d9ef>string</span> <span style=color:#e6db74>`datastore:&#34;Name&#34;`</span>
+}
+</code></pre></div><p>Now let&rsquo;s go ahead and install the unisoner command line tool and the unison library.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>goapp $ go get github.com/utsavgupta/go-unison/unisoner
+goapp $ go get github.com/utsavgupta/go-unison/unison
+</code></pre></div><p>We are now ready to create new migration files. When you execute the unisoner command it creates the following to bootstrap unison.</p><ul><li><em>Migration package</em>: A new package is created in the present working directory. By default the name of this package is migration. But this can be overridden by either setting the environment variable <code>unison_migration_package</code> or by passing <code>--migration_package &lt;pkg_name></code> while executing the command. Note: if values are received from both, environment variable and the command line param, the latter will be given precedence.</li><li><em>Unison migrations type</em>: A new type gets created within the above package. It is on this type new migrations will be defined. Finally an instance of this type needs to be passed to the unison library for it to work its magic.</li></ul><p>Now with the details out of the way let&rsquo;s create our first migration script.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>goapp $ unisoner --migration_package gcp
+Filename <span style=color:#f92672>[</span>.go extension is automatically appended<span style=color:#f92672>]</span> <span style=color:#f92672>(</span>default -&gt; Apply1584396052<span style=color:#f92672>)</span>: fruits
+Description: add fruits
+</code></pre></div><p>Let&rsquo;s examine the files that were generated by unison.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>goapp $ ls gcp/
+fruits.go   unison.go
+</code></pre></div><p>The file unison.go contains the migrations type that has been explained above. The other file is where the migration script goes.</p><p>Open <code>gcp/fruits.go</code> in a text editor and the contents should look like the following.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#f92672>package</span> <span style=color:#a6e22e>gcp</span>
+
+<span style=color:#f92672>import</span> (
+    <span style=color:#e6db74>&#34;cloud.google.com/go/datastore&#34;</span>
+)
+
+<span style=color:#75715e>// Apply1584396052 add fruits
+</span><span style=color:#75715e></span><span style=color:#66d9ef>func</span> (<span style=color:#a6e22e>u</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>UnisonMigrations</span>) <span style=color:#a6e22e>Apply1584396052</span>(<span style=color:#a6e22e>t</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>datastore</span>.<span style=color:#a6e22e>Transaction</span>, <span style=color:#a6e22e>ns</span> <span style=color:#66d9ef>string</span>) <span style=color:#66d9ef>error</span> {
+
+    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>nil</span>
+}
+</code></pre></div><p>Each migration file we generate should ideally contain one method defined on UnisonMigrations. These method names are based on the following naming convention <code>Apply&lt;Timestamp></code>. It is based on this timestamp that the unison library sorts the order of migrations. A migration once successfully commited <em>will not</em> be run again. Only migrations that have a timestamp greater than the last successully executed migration will be executed.</p><p>Since I love eating apples and mangoes, I will migrate these two fruits to Datastore. Let&rsquo;s make the following changes to <code>gcp/fruits.go</code> (you can use your favorites here 😉).</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#f92672>package</span> <span style=color:#a6e22e>gcp</span>
+
+<span style=color:#f92672>import</span> (
+    <span style=color:#e6db74>&#34;goapp/ent&#34;</span>
+
+    <span style=color:#e6db74>&#34;cloud.google.com/go/datastore&#34;</span>
+)
+
+<span style=color:#75715e>// Apply1584396052 add fruits
+</span><span style=color:#75715e></span><span style=color:#66d9ef>func</span> (<span style=color:#a6e22e>u</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>UnisonMigrations</span>) <span style=color:#a6e22e>Apply1584396052</span>(<span style=color:#a6e22e>t</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>datastore</span>.<span style=color:#a6e22e>Transaction</span>, <span style=color:#a6e22e>ns</span> <span style=color:#66d9ef>string</span>) <span style=color:#66d9ef>error</span> {
+
+    <span style=color:#a6e22e>fruits</span> <span style=color:#f92672>:=</span> []<span style=color:#a6e22e>ent</span>.<span style=color:#a6e22e>Fruit</span>{
+		<span style=color:#a6e22e>ent</span>.<span style=color:#a6e22e>Fruit</span>{<span style=color:#a6e22e>ID</span>: <span style=color:#e6db74>&#34;apple&#34;</span>, <span style=color:#a6e22e>Name</span>: <span style=color:#e6db74>&#34;Apple&#34;</span>},
+		<span style=color:#a6e22e>ent</span>.<span style=color:#a6e22e>Fruit</span>{<span style=color:#a6e22e>ID</span>: <span style=color:#e6db74>&#34;mango&#34;</span>, <span style=color:#a6e22e>Name</span>: <span style=color:#e6db74>&#34;Mango&#34;</span>},
+	}
+
+	<span style=color:#a6e22e>keys</span> <span style=color:#f92672>:=</span> make([]<span style=color:#f92672>*</span><span style=color:#a6e22e>datastore</span>.<span style=color:#a6e22e>Key</span>, len(<span style=color:#a6e22e>fruits</span>))
+
+	<span style=color:#66d9ef>for</span> <span style=color:#a6e22e>idx</span>, <span style=color:#a6e22e>fruit</span> <span style=color:#f92672>:=</span> <span style=color:#66d9ef>range</span> <span style=color:#a6e22e>fruits</span> {
+		<span style=color:#a6e22e>keys</span>[<span style=color:#a6e22e>idx</span>] = <span style=color:#a6e22e>datastore</span>.<span style=color:#a6e22e>NameKey</span>(<span style=color:#e6db74>&#34;Fruits&#34;</span>, <span style=color:#a6e22e>fruit</span>.<span style=color:#a6e22e>ID</span>, <span style=color:#66d9ef>nil</span>)
+	    <span style=color:#a6e22e>keys</span>[<span style=color:#a6e22e>idx</span>].<span style=color:#a6e22e>Namespace</span> = <span style=color:#a6e22e>ns</span>
+	}
+
+	<span style=color:#a6e22e>_</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>PutMulti</span>(<span style=color:#a6e22e>keys</span>, <span style=color:#a6e22e>fruits</span>)
+
+	<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+}
+</code></pre></div><p>Great! Our first migration script is ready. Now all that remains is to use the unison library to migrate this script. For that let&rsquo;s make changes to <code>main.go</code>.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#f92672>package</span> <span style=color:#a6e22e>main</span>
+
+<span style=color:#f92672>import</span> (
+    <span style=color:#e6db74>&#34;context&#34;</span>
+
+    <span style=color:#e6db74>&#34;goapp/gcp&#34;</span>
+
+    <span style=color:#e6db74>&#34;cloud.google.com/go/datastore&#34;</span>
+    <span style=color:#e6db74>&#34;github.com/utsavgupta/go-unison/unison&#34;</span>
+)
+
+<span style=color:#66d9ef>const</span> (
+	<span style=color:#a6e22e>namespace</span> = <span style=color:#e6db74>&#34;unison-demo&#34;</span>
+)
+
+<span style=color:#66d9ef>func</span> <span style=color:#a6e22e>main</span>() {
+
+	<span style=color:#a6e22e>dsClient</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>datastore</span>.<span style=color:#a6e22e>NewClient</span>(<span style=color:#a6e22e>context</span>.<span style=color:#a6e22e>Background</span>(), <span style=color:#e6db74>&#34;*detect-project-id*&#34;</span>)
+
+	<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+		panic(<span style=color:#a6e22e>err</span>)
+	}
+
+	<span style=color:#66d9ef>var</span> <span style=color:#a6e22e>unisonMigrations</span> <span style=color:#a6e22e>gcp</span>.<span style=color:#a6e22e>UnisonMigrations</span>
+
+	<span style=color:#a6e22e>unison</span>.<span style=color:#a6e22e>RunMigrations</span>(<span style=color:#a6e22e>dsClient</span>, <span style=color:#a6e22e>namespace</span>, <span style=color:#f92672>&amp;</span><span style=color:#a6e22e>unisonMigrations</span>)
+}
+</code></pre></div><p>We are a step away from migrating our first entities to Datastore. Before running the code make sure you have Google application credentials set. More on it <a href=https://cloud.google.com/docs/authentication/production>here</a>.</p><p>After you have set the variable you will be ready to run your shiny new migration script.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text>goapp $ go run .
+Running Unison
+Applying migration 1584477480 ... Done
+We are done !!
+</code></pre></div><p>Yay ! We are done migrating our first migration script. Head over to the Google Cloud console to verify the changes.</p><p><img src=/img/unison-fruit-1.png alt="alt text" title="Fruit entities on Datastore"></p><p>Note that the migration records themselves are stored as entites of kind <code>UnisonMigrationMeta</code>.</p><p><img src=/img/unison-migrations-1.png alt="alt text" title="Migration entities"></p><p>Now with the first migration script done, let&rsquo;s create a new script to migrate a few more fruits.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>goapp $ unisoner --migration_package gcp
+Filename <span style=color:#f92672>[</span>.go extension is automatically appended<span style=color:#f92672>]</span> <span style=color:#f92672>(</span>default -&gt; Apply1584126043<span style=color:#f92672>)</span>: more_fruits
+Description: add more fruits
+</code></pre></div><p>Edit the newly created <code>gcp/more_fruits.go</code> file to migrate a few more fruits.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#f92672>package</span> <span style=color:#a6e22e>gcp</span>
+
+<span style=color:#f92672>import</span> (
+    <span style=color:#e6db74>&#34;goapp/ent&#34;</span>
+
+    <span style=color:#e6db74>&#34;cloud.google.com/go/datastore&#34;</span>
+)
+
+<span style=color:#75715e>// Apply1584126043 add fruits
+</span><span style=color:#75715e></span><span style=color:#66d9ef>func</span> (<span style=color:#a6e22e>u</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>UnisonMigrations</span>) <span style=color:#a6e22e>Apply1584126043</span>(<span style=color:#a6e22e>t</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>datastore</span>.<span style=color:#a6e22e>Transaction</span>, <span style=color:#a6e22e>ns</span> <span style=color:#66d9ef>string</span>) <span style=color:#66d9ef>error</span> {
+
+    <span style=color:#a6e22e>fruits</span> <span style=color:#f92672>:=</span> []<span style=color:#a6e22e>ent</span>.<span style=color:#a6e22e>Fruit</span>{
+		<span style=color:#a6e22e>ent</span>.<span style=color:#a6e22e>Fruit</span>{<span style=color:#a6e22e>ID</span>: <span style=color:#e6db74>&#34;banana&#34;</span>, <span style=color:#a6e22e>Name</span>: <span style=color:#e6db74>&#34;Banana&#34;</span>},
+		<span style=color:#a6e22e>ent</span>.<span style=color:#a6e22e>Fruit</span>{<span style=color:#a6e22e>ID</span>: <span style=color:#e6db74>&#34;orange&#34;</span>, <span style=color:#a6e22e>Name</span>: <span style=color:#e6db74>&#34;Orange&#34;</span>},
+		<span style=color:#a6e22e>ent</span>.<span style=color:#a6e22e>Fruit</span>{<span style=color:#a6e22e>ID</span>: <span style=color:#e6db74>&#34;watermelon&#34;</span>, <span style=color:#a6e22e>Name</span>: <span style=color:#e6db74>&#34;Watermelon&#34;</span>},
+	}
+
+	<span style=color:#a6e22e>keys</span> <span style=color:#f92672>:=</span> make([]<span style=color:#f92672>*</span><span style=color:#a6e22e>datastore</span>.<span style=color:#a6e22e>Key</span>, len(<span style=color:#a6e22e>fruits</span>))
+
+	<span style=color:#66d9ef>for</span> <span style=color:#a6e22e>idx</span>, <span style=color:#a6e22e>fruit</span> <span style=color:#f92672>:=</span> <span style=color:#66d9ef>range</span> <span style=color:#a6e22e>fruits</span> {
+		<span style=color:#a6e22e>keys</span>[<span style=color:#a6e22e>idx</span>] = <span style=color:#a6e22e>datastore</span>.<span style=color:#a6e22e>NameKey</span>(<span style=color:#e6db74>&#34;Fruits&#34;</span>, <span style=color:#a6e22e>fruit</span>.<span style=color:#a6e22e>ID</span>, <span style=color:#66d9ef>nil</span>)
+	    <span style=color:#a6e22e>keys</span>[<span style=color:#a6e22e>idx</span>].<span style=color:#a6e22e>Namespace</span> = <span style=color:#a6e22e>ns</span>
+	}
+
+	<span style=color:#a6e22e>_</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>t</span>.<span style=color:#a6e22e>PutMulti</span>(<span style=color:#a6e22e>keys</span>, <span style=color:#a6e22e>fruits</span>)
+
+	<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>err</span>
+}
+</code></pre></div><p>Running <code>go run .</code> again should migrate only the new migration script.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text>goapp $ go run .
+Running Unison
+Applying migration 1584126043 ... Done
+We are done !!
+</code></pre></div><p><em>Please note: The project is in it&rsquo;s early stages. Contributions in terms of bug reports, documentation, and testing are welcome. Do not hesitate to report issues or to raise pull requests.</em></p><div class=blog-tags><a href=https://utsavgupta.in//tags/unison/>unison</a>&nbsp;
+<a href=https://utsavgupta.in//tags/datastore/>datastore</a>&nbsp;
+<a href=https://utsavgupta.in//tags/go/>go</a>&nbsp;</div></article><script>document.addEventListener('scroll',function(){if(document.body.scrollTop>50||document.documentElement.scrollTop>50){document.getElementById('backtotopButton').style.opacity="1";document.getElementById('backtotopButton').style.transition="0.5s";}else{document.getElementById('backtotopButton').style.opacity="0";document.getElementById('backtotopButton').style.transition="0.5s";}});function topFunction(){document.body.scrollTop=0;document.documentElement.scrollTop=0;}</script><button onclick=topFunction() id=backtotopButton>
+<i class="fa fa-angle-up"></i></button></div><footer><div class=container><p class="credits copyright"><a href=https://utsavgupta.in/about>Utsav Gupta</a>
+&nbsp;&copy;
+2020
+&nbsp;&ndash;&nbsp;
+<i class="fas fa-moon" id=dark-mode-toggle></i><p class="credits theme-by">Powered By <a href=https://gohugo.io>Hugo</a>&nbsp;Theme <a href=https://github.com/matsuyoshi30/harbor>Harbor</a>. Hosted on <a href=https://www.netlify.com/>Netlify</a>.<br><a href=https://utsavgupta.in/privacy>Privacy Policy</a>.</p></p></div></footer></body></html>
