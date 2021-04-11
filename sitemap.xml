@@ -3,11 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://utsavgupta.in/tags/datastore/</loc>
-    <lastmod>2020-11-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://utsavgupta.in/tags/distributed-systems/</loc>
     <lastmod>2020-11-11T00:00:00+00:00</lastmod>
   </url>
@@ -18,32 +13,12 @@
   </url>
   
   <url>
-    <loc>https://utsavgupta.in/post/leader-election/</loc>
-    <lastmod>2020-11-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://utsavgupta.in/posts/leader-election/</loc>
     <lastmod>2020-11-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://utsavgupta.in/tags/leader-election/</loc>
-    <lastmod>2020-11-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://utsavgupta.in/posts/</loc>
-    <lastmod>2020-11-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://utsavgupta.in/post/</loc>
-    <lastmod>2020-11-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://utsavgupta.in/tags/system-design/</loc>
     <lastmod>2020-11-11T00:00:00+00:00</lastmod>
   </url>
   
@@ -58,22 +33,7 @@
   </url>
   
   <url>
-    <loc>https://utsavgupta.in/tags/docker/</loc>
-    <lastmod>2020-07-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://utsavgupta.in/post/installing-multinode-kubernetes-cluster-kubeadm/</loc>
-    <lastmod>2020-07-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://utsavgupta.in/posts/installing-multinode-kubernetes-cluster-kubeadm/</loc>
-    <lastmod>2020-07-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://utsavgupta.in/tags/kubeadm/</loc>
     <lastmod>2020-07-29T00:00:00+00:00</lastmod>
   </url>
   
@@ -83,28 +43,8 @@
   </url>
   
   <url>
-    <loc>https://utsavgupta.in/tags/linux/</loc>
-    <lastmod>2020-07-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://utsavgupta.in/tags/virtualbox/</loc>
-    <lastmod>2020-07-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://utsavgupta.in/privacy/</loc>
     <lastmod>2020-03-17T22:10:51+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://utsavgupta.in/tags/unison/</loc>
-    <lastmod>2020-03-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://utsavgupta.in/post/unison-datastore-migration-go/</loc>
-    <lastmod>2020-03-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>

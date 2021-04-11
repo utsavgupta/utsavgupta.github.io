@@ -13,33 +13,12 @@
     
     <item>
       <title>Leader election</title>
-      <link>https://utsavgupta.in/post/leader-election/</link>
-      <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://utsavgupta.in/post/leader-election/</guid>
-      <description>Photo by Markus Spiske on Unsplash Recently all our services were replicated to multiple data centers on Google Cloud Platform. The REST API services scaled well without any code changes. However the batch jobs and their schedulers needed attention to ensure we avoid any kind of race conditions.
-Leader election is ubiquitous in today&amp;rsquo;s world of distributed computing. Knowingly or unknowingly we use a multitude of tools that make use of leader election to ensure systems run like clockwork.</description>
-    </item>
-    
-    <item>
-      <title>Leader election</title>
       <link>https://utsavgupta.in/posts/leader-election/</link>
       <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://utsavgupta.in/posts/leader-election/</guid>
       <description>Photo by Markus Spiske on Unsplash -- Recently all our services were replicated to multiple data centers on Google Cloud Platform. The REST API services scaled well without any code changes. However the batch jobs and their schedulers needed attention to ensure we avoid any kind of race conditions.
 Leader election is ubiquitous in today&amp;rsquo;s world of distributed computing. Knowingly or unknowingly we use a multitude of tools that make use of leader election to ensure systems run like clockwork.</description>
-    </item>
-    
-    <item>
-      <title>Unison: A Datastore migration library for Google Go</title>
-      <link>https://utsavgupta.in/post/unison-datastore-migration-go/</link>
-      <pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://utsavgupta.in/post/unison-datastore-migration-go/</guid>
-      <description>Unison is a lightweight library that allows you to version and manage your Datastore migrations. In this blog article we will have a look at how you can install the Unison command line tool and get started migrating entities to Datastore.
-Note: At the time of writing this article the library was not compatible with Google Firestore.
-Before we begin, the article assumes that you have Google Go installed on your computer.</description>
     </item>
     
     <item>
