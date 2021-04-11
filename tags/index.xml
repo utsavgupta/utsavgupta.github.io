@@ -1,45 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-	<channel>
-		<title>Tags on Utsav Gupta</title>
-		<link>https://utsavgupta.in/tags/</link>
-		<description>Recent content in Tags </description>
-		<generator>Hugo -- gohugo.io</generator>
-		
-  		<language>en</language>
-		
-		<managingEditor>Page(/tags) (Utsav Gupta)</managingEditor>
-    	
-  		<lastBuildDate>Wed, 11 Nov 2020 00:00:00 +0000</lastBuildDate>
-		
-		<atom:link href="/tags/" rel="self" type="application/rss+xml" />
-		
-		<item>
-			<title>Leader election</title>
-			<link>https://utsavgupta.in/blog/leader-election/</link>
-			<pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
-			<guid>https://utsavgupta.in/blog/leader-election/</guid>
-			<description>Photo by Markus Spiske on Unsplash Recently all our services were replicated to multiple data centers on Google Cloud Platform. The REST API services scaled well without any code changes. However the batch jobs and their schedulers needed attention to ensure we avoid any kind of race conditions.
-Leader election is ubiquitous in today&amp;rsquo;s world of distributed computing. Knowingly or unknowingly we use a multitude of tools that make use of leader election to ensure systems run like clockwork.</description>
-		</item>
-      	
-		<item>
-			<title>Installing a multinode Kubernetes cluster using kubeadm</title>
-			<link>https://utsavgupta.in/blog/installing-multinode-kubernetes-cluster-kubeadm/</link>
-			<pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
-			<guid>https://utsavgupta.in/blog/installing-multinode-kubernetes-cluster-kubeadm/</guid>
-			<description>I have been playing around with Kubernetes in various settings for almost three years. Majority of it in production. Where the infrastructure was either setup and configured by experienced platform engineers, or it was hosted on Google as GKE clusters. My interaction with Kubernetes has been limited to mostly handling the deployments that I work on.
-Recently I decided to start learning Kubernetes at a greater depth. So what better place to start than installing and configuring a multi node cluster on my laptop?</description>
-		</item>
-      	
-		<item>
-			<title>Unison: A Datastore migration library for Google Go</title>
-			<link>https://utsavgupta.in/blog/unison-datastore-migration-go/</link>
-			<pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate>
-			<guid>https://utsavgupta.in/blog/unison-datastore-migration-go/</guid>
-			<description>Unison is a lightweight library that allows you to version and manage your Datastore migrations. In this blog article we will have a look at how you can install the Unison command line tool and get started migrating entities to Datastore.
-Note: At the time of writing this article the library was not compatible with Google Firestore.
-Before we begin, the article assumes that you have Google Go installed on your computer.</description>
-		</item>
-      	
-	</channel>
+  <channel>
+    <title>Tags on Utsav Gupta</title>
+    <link>http://example.org/tags/</link>
+    <description>Recent content in Tags on Utsav Gupta</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 11 Nov 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>datastore</title>
+      <link>http://example.org/tags/datastore/</link>
+      <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tags/datastore/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>distributed systems</title>
+      <link>http://example.org/tags/distributed-systems/</link>
+      <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tags/distributed-systems/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>go</title>
+      <link>http://example.org/tags/go/</link>
+      <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tags/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>leader election</title>
+      <link>http://example.org/tags/leader-election/</link>
+      <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tags/leader-election/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>system design</title>
+      <link>http://example.org/tags/system-design/</link>
+      <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tags/system-design/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>http://example.org/tags/docker/</link>
+      <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubeadm</title>
+      <link>http://example.org/tags/kubeadm/</link>
+      <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tags/kubeadm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes</title>
+      <link>http://example.org/tags/kubernetes/</link>
+      <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>http://example.org/tags/linux/</link>
+      <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>virtualbox</title>
+      <link>http://example.org/tags/virtualbox/</link>
+      <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tags/virtualbox/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>unison</title>
+      <link>http://example.org/tags/unison/</link>
+      <pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tags/unison/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
 </rss>
