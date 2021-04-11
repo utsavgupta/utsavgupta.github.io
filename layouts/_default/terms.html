@@ -1,0 +1,11 @@
+{{ define "main" }}
+    <section class="main-content">
+        <h1>Tags</h1>
+        <div class="tags-container">
+            <div class="vspacer-1rem"></div>
+            {{ range .Data.Terms.Alphabetical }}
+                <h6><a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a></h4>
+            {{ end }}
+        </div>
+    </section>
+{{ end }}

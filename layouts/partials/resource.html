@@ -1,0 +1,15 @@
+{{ $resourceTemplate := resources.Get "css/style.css" }}
+{{ if $resourceTemplate }}
+    {{ $resource := $resourceTemplate | resources.ExecuteAsTemplate "css/main.css" . }}
+    <link rel="stylesheet" href="{{ $resource.Permalink }}">
+{{ end }}
+{{ $resourceTemplate := resources.Get "css/syntax-light.css" }}
+{{ if $resourceTemplate }}
+    {{ $resource := $resourceTemplate | resources.ExecuteAsTemplate "css/syntax-light.css" . }}
+    <link rel="stylesheet" href="{{ $resource.Permalink }}">
+{{ end }}
+{{ $resourceTemplate := resources.Get "css/syntax-dark.css" }}
+{{ if $resourceTemplate }}
+    {{ $resource := $resourceTemplate | resources.ExecuteAsTemplate "css/syntax-dark.css" . }}
+    <link rel="stylesheet" href="{{ $resource.Permalink }}">
+{{ end }}

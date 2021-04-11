@@ -1,0 +1,23 @@
+{{ define "main" }}
+    <section class="main-content">
+        {{ if .IsHome }}
+            {{ $pages := .Paginate (where site.RegularPages "Type" "in" site.Params.mainSections) }}
+        {{ else }}
+            {{ $pages := .Paginator.Pages }}
+        {{ end}}
+        
+        {{ range .Paginator.Pages }}
+            {{ partial "preview.html" . }}
+        {{ end }}
+
+        <div class="pager">
+            {{ if .Paginator.HasPrev }}
+                <a href="{{ .Permalink }}page/{{ .Paginator.Prev.PageNumber }}">&lt; Prev</a>
+            {{ end}}
+            &nbsp;
+            {{ if .Paginator.HasNext }}
+                <a href="{{ .Permalink }}page/{{ .Paginator.Next.PageNumber }}">Next &gt;</a>
+            {{ end}}
+        </div>
+    </section>
+{{ end }}

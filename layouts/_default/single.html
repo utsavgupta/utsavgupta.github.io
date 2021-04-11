@@ -1,0 +1,5 @@
+{{ define "main" }}
+    {{ if eq .Page.Name "About" }}
+        {{ partial "about.html" . }}
+    {{ end }}
+{{ end }}

@@ -1,58 +1,46 @@
-# DO NOT REMOVE THIS
-theme = "harbor"
-
-baseURL = "https://utsavgupta.in/"
+baseURL = "http://example.org/"
+languageCode = "en-us"
 title = "Utsav Gupta"
-author = "Utsav Gupta"
-paginate = 3
-languageCode = "en"
-DefaultContentLanguage = "en"
-enableInlineShortcodes = true
-footnoteReturnLinkContents = "^"
-
-[Author]
-  name = "Utsav Gupta"
-
-[permalinks]
-	post = "/blog/:slug/"
-	page = "/:filename/"
-
-[outputs]
-    section = ["JSON", "HTML"]
-
-[[params.nav]]
-  identifier = "about"
-  name = "About"
-  icon = "fas fa-user fa-lg"
-  url = "/about/"
-  weight = 3
-
-[[params.nav]]
-  identifier = "tags"
-  name = "Tags"
-  icon = "fas fa-tag fa-lg"
-  url = "tags"
-  weight = 3
+paginate = 5
+pygmentsUseClasses = true
 
 [params]
-  mainSections = ["post"]
-  favicon16 = "favicon-16x16.png"
-  favicon32 = "favicon-32x32.png"
-  description = "Personal website and blog of yet another software developer"
-  css = ["css/custom.css"]
-
-[params.logo]
-    url = "logo.png"
-    width = 50
-    height = 50
-    alt = "Logo"
+    mainSections = ["posts"]
+    logo = "/img/logo.svg"
+    author = "Utsav Gupta"
 
 [params.social]
-  github = "utsavgupta"
-  linkedin = "utsav-gupta"
-  stackoverflow = "https://stackoverflow.com/users/520209/utsav"
-  email = "mail@utsavgupta.in"
-  publickey = "public_key.txt"
+    email = "mail@utsavgupta.in"
+    github = "utsavgupta"
+    linkedin = "in/utsav-gupta"
+    stackoverflow = "users/520209/utsav"
+    public_key = "/public_key.txt"
+
+[params.colors.light]
+    text = "black"
+    background = "white"
+    primary = "#5452BB"
+    secondary = "#C680C3"
+
+[params.colors.dark]
+    text = "#fff"
+    background = "#040d21"
+    primary = "#00C9FF"
+    secondary = "#92FE9D"
 
 [markup.goldmark.renderer] 
-  unsafe= true 
+    unsafe= true
+
+[markup]
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = false
+    hl_Lines = ""
+    lineAnchors = ""
+    lineNoStart = 1
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = true
+    style = ""
+    tabWidth = 4
