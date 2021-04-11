@@ -2,111 +2,111 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Utsav Gupta</title>
-    <link>http://example.org/tags/</link>
+    <link>https://utsavgupta.in/tags/</link>
     <description>Recent content in Tags on Utsav Gupta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 11 Nov 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://example.org/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://utsavgupta.in/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>datastore</title>
-      <link>http://example.org/tags/datastore/</link>
+      <link>https://utsavgupta.in/tags/datastore/</link>
       <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/datastore/</guid>
+      <guid>https://utsavgupta.in/tags/datastore/</guid>
       <description></description>
     </item>
     
     <item>
       <title>distributed systems</title>
-      <link>http://example.org/tags/distributed-systems/</link>
+      <link>https://utsavgupta.in/tags/distributed-systems/</link>
       <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/distributed-systems/</guid>
+      <guid>https://utsavgupta.in/tags/distributed-systems/</guid>
       <description></description>
     </item>
     
     <item>
       <title>go</title>
-      <link>http://example.org/tags/go/</link>
+      <link>https://utsavgupta.in/tags/go/</link>
       <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/go/</guid>
+      <guid>https://utsavgupta.in/tags/go/</guid>
       <description></description>
     </item>
     
     <item>
       <title>leader election</title>
-      <link>http://example.org/tags/leader-election/</link>
+      <link>https://utsavgupta.in/tags/leader-election/</link>
       <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/leader-election/</guid>
+      <guid>https://utsavgupta.in/tags/leader-election/</guid>
       <description></description>
     </item>
     
     <item>
       <title>system design</title>
-      <link>http://example.org/tags/system-design/</link>
+      <link>https://utsavgupta.in/tags/system-design/</link>
       <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/system-design/</guid>
+      <guid>https://utsavgupta.in/tags/system-design/</guid>
       <description></description>
     </item>
     
     <item>
       <title>docker</title>
-      <link>http://example.org/tags/docker/</link>
+      <link>https://utsavgupta.in/tags/docker/</link>
       <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/docker/</guid>
+      <guid>https://utsavgupta.in/tags/docker/</guid>
       <description></description>
     </item>
     
     <item>
       <title>kubeadm</title>
-      <link>http://example.org/tags/kubeadm/</link>
+      <link>https://utsavgupta.in/tags/kubeadm/</link>
       <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/kubeadm/</guid>
+      <guid>https://utsavgupta.in/tags/kubeadm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>kubernetes</title>
-      <link>http://example.org/tags/kubernetes/</link>
+      <link>https://utsavgupta.in/tags/kubernetes/</link>
       <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/kubernetes/</guid>
+      <guid>https://utsavgupta.in/tags/kubernetes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>linux</title>
-      <link>http://example.org/tags/linux/</link>
+      <link>https://utsavgupta.in/tags/linux/</link>
       <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/linux/</guid>
+      <guid>https://utsavgupta.in/tags/linux/</guid>
       <description></description>
     </item>
     
     <item>
       <title>virtualbox</title>
-      <link>http://example.org/tags/virtualbox/</link>
+      <link>https://utsavgupta.in/tags/virtualbox/</link>
       <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/virtualbox/</guid>
+      <guid>https://utsavgupta.in/tags/virtualbox/</guid>
       <description></description>
     </item>
     
     <item>
       <title>unison</title>
-      <link>http://example.org/tags/unison/</link>
+      <link>https://utsavgupta.in/tags/unison/</link>
       <pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/tags/unison/</guid>
+      <guid>https://utsavgupta.in/tags/unison/</guid>
       <description></description>
     </item>
     

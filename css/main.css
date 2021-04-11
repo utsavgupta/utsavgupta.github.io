@@ -141,7 +141,7 @@ a.nav-logo-anchor {
 }
 
 div.nav-logo {
-    background-image: url("http://example.org/img/nav-logo-light.svg");
+    background-image: url("https://utsavgupta.in/img/nav-logo-light.svg");
     background-position: center;
     background-size: contain;
     width: 64px;
@@ -340,7 +340,7 @@ div.pager {
     }
 
     div.nav-logo {
-        background-image: url("http://example.org/img/nav-logo-dark.svg");
+        background-image: url("https://utsavgupta.in/img/nav-logo-dark.svg");
     }
 }
 

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>leader election on Utsav Gupta</title>
-    <link>http://example.org/tags/leader-election/</link>
+    <link>https://utsavgupta.in/tags/leader-election/</link>
     <description>Recent content in leader election on Utsav Gupta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 11 Nov 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://example.org/tags/leader-election/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://utsavgupta.in/tags/leader-election/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Leader election</title>
-      <link>http://example.org/post/leader-election/</link>
+      <link>https://utsavgupta.in/post/leader-election/</link>
       <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/post/leader-election/</guid>
+      <guid>https://utsavgupta.in/post/leader-election/</guid>
       <description>Photo by Markus Spiske on Unsplash Recently all our services were replicated to multiple data centers on Google Cloud Platform. The REST API services scaled well without any code changes. However the batch jobs and their schedulers needed attention to ensure we avoid any kind of race conditions.
 Leader election is ubiquitous in today&amp;rsquo;s world of distributed computing. Knowingly or unknowingly we use a multitude of tools that make use of leader election to ensure systems run like clockwork.</description>
     </item>

@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>kubernetes on Utsav Gupta</title>
-    <link>http://example.org/tags/kubernetes/</link>
+    <link>https://utsavgupta.in/tags/kubernetes/</link>
     <description>Recent content in kubernetes on Utsav Gupta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 29 Jul 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://example.org/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://utsavgupta.in/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Installing a multinode Kubernetes cluster using kubeadm</title>
-      <link>http://example.org/post/installing-multinode-kubernetes-cluster-kubeadm/</link>
+      <link>https://utsavgupta.in/post/installing-multinode-kubernetes-cluster-kubeadm/</link>
       <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/post/installing-multinode-kubernetes-cluster-kubeadm/</guid>
+      <guid>https://utsavgupta.in/post/installing-multinode-kubernetes-cluster-kubeadm/</guid>
       <description>I have been playing around with Kubernetes in various settings for almost three years. Majority of it in production. Where the infrastructure was either setup and configured by experienced platform engineers, or it was hosted on Google as GKE clusters. My interaction with Kubernetes has been limited to mostly handling the deployments that I work on.
 Recently I decided to start learning Kubernetes at a greater depth. So what better place to start than installing and configuring a multi node cluster on my laptop?</description>
     </item>
     
     <item>
       <title>Installing a multinode Kubernetes cluster using kubeadm</title>
-      <link>http://example.org/posts/installing-multinode-kubernetes-cluster-kubeadm/</link>
+      <link>https://utsavgupta.in/posts/installing-multinode-kubernetes-cluster-kubeadm/</link>
       <pubDate>Wed, 29 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/posts/installing-multinode-kubernetes-cluster-kubeadm/</guid>
+      <guid>https://utsavgupta.in/posts/installing-multinode-kubernetes-cluster-kubeadm/</guid>
       <description>I have been playing around with Kubernetes in various settings for almost three years. Majority of it in production. Where the infrastructure was either setup and configured by experienced platform engineers, or it was hosted on Google as GKE clusters. My interaction with Kubernetes has been limited to mostly handling the deployments that I work on.
 Recently I decided to start learning Kubernetes at a greater depth. So what better place to start than installing and configuring a multi node cluster on my laptop?</description>
     </item>
