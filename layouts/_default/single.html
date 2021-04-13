@@ -1,5 +1,10 @@
 {{ define "main" }}
     {{ if eq .Page.Name "About" }}
         {{ partial "about.html" . }}
+    {{ else }}
+        <section class="main-content">
+            <h1>{{ .Title }}</h1>
+            <p>{{ .Content }}</p>
+        </section>
     {{ end }}
 {{ end }}
