@@ -13,10 +13,10 @@
     
     <item>
       <title>Leader election</title>
-      <link>https://utsavgupta.in/posts/leader-election/</link>
+      <link>https://utsavgupta.in/blog/leader-election/</link>
       <pubDate>Wed, 11 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://utsavgupta.in/posts/leader-election/</guid>
+      <guid>https://utsavgupta.in/blog/leader-election/</guid>
       <description>Photo by Markus Spiske on Unsplash -- Recently all our services were replicated to multiple data centers on Google Cloud Platform. The REST API services scaled well without any code changes. However the batch jobs and their schedulers needed attention to ensure we avoid any kind of race conditions.
 Leader election is ubiquitous in today&amp;rsquo;s world of distributed computing. Knowingly or unknowingly we use a multitude of tools that make use of leader election to ensure systems run like clockwork.</description>
     </item>
