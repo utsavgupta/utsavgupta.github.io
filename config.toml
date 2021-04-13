@@ -4,6 +4,9 @@ title = "Utsav Gupta"
 paginate = 5
 pygmentsUseClasses = true
 
+[permalinks]
+	posts = "/blog/:slug/"
+
 [params]
     mainSections = ["posts"]
     logo = "/img/logo.svg"
