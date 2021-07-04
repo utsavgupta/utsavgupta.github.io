@@ -17,7 +17,9 @@ pygmentsUseClasses = true
     github = "utsavgupta"
     linkedin = "in/utsav-gupta"
     stackoverflow = "users/520209/utsav"
+    flickr = "photos/193395831@N04/"
     public_key = "/public_key.txt"
+
 
 [params.colors.light]
     text = "black"
