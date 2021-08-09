@@ -13,5 +13,6 @@ On the days I am not writing code one can find me pursuing my new found hobby of
 <div class="vspacer-2rem"></div>
 
 ##### Certifications
+- [LFS158x: Introduction to Kubernetes](https://courses.edx.org/certificates/771d108e04ee423a8f27e69e43e5392d)
 - [Google Cloud Platform Fundamentals: Core Infrastructure](https://www.coursera.org/account/accomplishments/verify/S9RULTPCBRDB)
 - [Functional Program Design in Scala](https://www.coursera.org/account/accomplishments/verify/EZMFM4SG6FGD)
