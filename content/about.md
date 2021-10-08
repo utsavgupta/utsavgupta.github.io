@@ -8,8 +8,6 @@ I am a polyglot programmer with professional experience in designing and develop
 
 I am experienced in building and maintaining enterprise level platform services. My project work includes developing an OAuth2 and SAML 2.0 compliant identity and access management system for a top German wholesaler, and a custom built ci/cd platform for one of Germany's largest discount retailers.
 
-On the days I am not writing code one can find me pursuing my new found hobby of photography.
-
 <div class="vspacer-2rem"></div>
 
 ##### Certifications
