@@ -329,6 +329,18 @@ div.pager {
     font-size: 0.75rem;
 }
 
+#progress-bar {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    height: 0.5rem;
+    width: 0%;
+    background: -webkit-linear-gradient(135deg, var(--color-emph-2) 10%, var(--color-emph-1) 100%);
+    opacity: 0.5;
+    transition: ease-out width 0.5s;
+}
+
 /* ------------------------------------------ */
 
 @media (prefers-color-scheme: dark) {
