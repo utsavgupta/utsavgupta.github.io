@@ -13,3 +13,5 @@
     {{ $resource := $resourceTemplate | resources.ExecuteAsTemplate "css/syntax-dark.css" . }}
     <link rel="stylesheet" href="{{ $resource.Permalink }}">
 {{ end }}
+{{ $app := resources.Get "js/app.js" | minify |fingerprint "sha512" }}
+<script src="{{ $app.RelPermalink }}" integrity="{{ $app.Data.Integrity }}"></script> 
