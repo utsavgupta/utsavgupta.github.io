@@ -337,7 +337,7 @@ div.pager {
     height: 0.5rem;
     width: 0%;
     background: -webkit-linear-gradient(135deg, var(--color-emph-2) 10%, var(--color-emph-1) 100%);
-    opacity: 0.5;
+    opacity: 0.75;
     transition: ease-out width 0.5s;
 }
 
