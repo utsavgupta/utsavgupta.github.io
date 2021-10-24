@@ -21,7 +21,7 @@ function resizeProgressBar() {
 }
 
 function positionTopButton() {
-    let rightOfMain = main.getBoundingClientRect().right;
+    let rightOfMain = mainsection.getBoundingClientRect().right;
     topbutton.style.left = (rightOfMain - topbutton.getBoundingClientRect().width) + "px"
 }
 

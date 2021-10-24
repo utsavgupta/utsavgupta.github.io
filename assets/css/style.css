@@ -344,6 +344,7 @@ div.pager {
 #top-button {
     position: fixed;
     z-index: 100;
+    display: none;
     top: 90vh;
     left: 0;
     width: auto;
