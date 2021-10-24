@@ -341,6 +341,23 @@ div.pager {
     transition: ease-out width 0.5s;
 }
 
+#top-button {
+    position: fixed;
+    z-index: 100;
+    top: 90vh;
+    left: 0;
+    width: auto;
+    height: auto;
+    margin: 2rem;
+    opacity: 0.85;
+    transition: ease-in opacity 0.5s;
+}
+
+#top-button:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
 /* ------------------------------------------ */
 
 @media (prefers-color-scheme: dark) {
