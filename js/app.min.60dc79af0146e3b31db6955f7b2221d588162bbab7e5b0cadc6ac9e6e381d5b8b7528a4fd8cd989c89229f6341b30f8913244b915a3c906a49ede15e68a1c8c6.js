@@ -7,7 +7,7 @@ let progresswidth=(scrollDistance/(document.documentElement.clientHeight-main.ge
 if(progresswidth<0){progresswidth=0}
 if(progresswidth==0){topbutton.style.display="none"}else{topbutton.style.display="block"}
 progressbar.style.width=progresswidth+"%"}
-function positionTopButton(){let rightOfMain=main.getBoundingClientRect().right;topbutton.style.left=(rightOfMain-topbutton.getBoundingClientRect().width)+"px"}
+function positionTopButton(){let rightOfMain=mainsection.getBoundingClientRect().right;topbutton.style.left=(rightOfMain-topbutton.getBoundingClientRect().width)+"px"}
 positionTopButton()
 window.addEventListener("scroll",resizeProgressBar)
 window.addEventListener("resize",positionTopButton)
