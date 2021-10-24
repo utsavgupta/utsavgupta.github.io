@@ -1,7 +1,7 @@
 const progressbar = document.querySelector("#progress-bar")
 const main = document.querySelector("main")
-const mainsection = document.querySelector("section.main-content")
-const topbutton = document.querySelector("#top-button")
+// const mainsection = document.querySelector("section.main-content")
+// const topbutton = document.querySelector("#top-button")
 
 function resizeProgressBar() {
     let scrollDistance = main.getBoundingClientRect().top
@@ -11,21 +11,21 @@ function resizeProgressBar() {
         progresswidth = 0
     }
 
-    if (progresswidth == 0) {
-        topbutton.style.display = "none"
-    } else {
-        topbutton.style.display = "block"
-    }
+    // if (progresswidth == 0) {
+    //     topbutton.style.display = "none"
+    // } else {
+    //     topbutton.style.display = "block"
+    // }
 
     progressbar.style.width = progresswidth + "%"
 }
 
-function positionTopButton() {
-    let rightOfMain = mainsection.getBoundingClientRect().right;
-    topbutton.style.left = (rightOfMain - topbutton.getBoundingClientRect().width) + "px"
-}
+// function positionTopButton() {
+//     let rightOfMain = mainsection.getBoundingClientRect().right;
+//     topbutton.style.left = (rightOfMain - topbutton.getBoundingClientRect().width) + "px"
+// }
 
-positionTopButton()
+// positionTopButton()
 
 window.addEventListener("scroll", resizeProgressBar)
-window.addEventListener("resize", positionTopButton)
+// window.addEventListener("resize", positionTopButton)
