@@ -2,7 +2,7 @@
 title: "Unison: A Datastore migration library for Google Go"
 date: "2020-03-17"
 slug: "unison-datastore-migration-go"
-tags: ["go"]
+tags: ["go", "gcp"]
 
 description: "Unison is Go library for managing Google Datastore entity migrations."
 ---
