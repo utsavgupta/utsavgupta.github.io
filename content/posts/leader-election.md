@@ -2,7 +2,7 @@
 title: "Leader election"
 date: "2020-11-11"
 slug: "leader-election"
-tags: ["distributed systems", "go"]
+tags: ["distributed systems", "go", "gcp"]
 
 description: "Learn about leader election and its implementation in Go."
 ---
