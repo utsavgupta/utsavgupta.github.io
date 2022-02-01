@@ -14,7 +14,7 @@ description: "Learn about leader election and its implementation in Go."
 
 Recently all our services were replicated to multiple data centers on Google Cloud Platform. The REST API services scaled well without any code changes. However the batch jobs and their schedulers needed attention to ensure we avoid any kind of race conditions. 
 
-Leader election is ubiquitous in today's world of distributed computing. Knowingly or unknowingly we use a multitude of tools that make use of leader election to ensure systems run like clockwork. Cassandra and Kafka are two examples.
+Leader election is ubiquitous in today's world of distributed computing. Knowingly or unknowingly we use a multitude of tools that make use of leader election to ensure systems run like clockwork.
 
 In this article will explore the idea, and one of its implementations in Go using Google Datastore for persisting data.
 
