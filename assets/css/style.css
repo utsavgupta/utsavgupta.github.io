@@ -17,8 +17,6 @@
 {{ $logoSvgLight := $logoSvgTemplate | resources.ExecuteAsTemplate "/img/nav-logo-light.svg" (dict "Primary" .Site.Params.Colors.Light.Primary "Secondary" .Site.Params.Colors.Light.Secondary) }}
 {{ $logoSvgDark := $logoSvgTemplate | resources.ExecuteAsTemplate "/img/nav-logo-dark.svg" (dict "Primary" .Site.Params.Colors.Dark.Primary "Secondary" .Site.Params.Colors.Dark.Secondary) }}
 
-@import "syntax-light.css";
-
 html {
     font-size: 24px;
 }
@@ -178,6 +176,30 @@ pre code {
 
 strong {
     font-weight: 600;
+}
+
+blockquote {
+    padding-left: 2em;
+    padding-right: 2em;
+    margin-top: 3em;
+    margin-bottom: 3em;
+    font-weight: 700;
+    z-index: 600;
+    position: relative;
+}
+
+blockquote::before {
+    content: '\201C';
+    font: var(--secondary-font);
+    color: var(--color-emph-1);
+    font-size: 7.5em;
+    opacity: .3;
+    position: absolute;
+    z-index: -300;
+    margin:0;
+    padding:0;
+    top: -3rem;
+    left: -1rem;
 }
 
 /* --------------------------------------------------- */
