@@ -3,8 +3,38 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://utsavgupta.in/tags/aws/</loc>
+    <lastmod>2022-03-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://utsavgupta.in/tags/distributed-systems/</loc>
-    <lastmod>2020-11-11T00:00:00+00:00</lastmod>
+    <lastmod>2022-03-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://utsavgupta.in/tags/go/</loc>
+    <lastmod>2022-03-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://utsavgupta.in/blog/lessons-learnt-from-replaying-elb-logs-at-scale/</loc>
+    <lastmod>2022-03-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://utsavgupta.in/posts/</loc>
+    <lastmod>2022-03-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://utsavgupta.in/tags/</loc>
+    <lastmod>2022-03-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://utsavgupta.in/</loc>
+    <lastmod>2022-03-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -13,27 +43,7 @@
   </url>
   
   <url>
-    <loc>https://utsavgupta.in/tags/go/</loc>
-    <lastmod>2020-11-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://utsavgupta.in/blog/leader-election/</loc>
-    <lastmod>2020-11-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://utsavgupta.in/posts/</loc>
-    <lastmod>2020-11-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://utsavgupta.in/tags/</loc>
-    <lastmod>2020-11-11T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://utsavgupta.in/</loc>
     <lastmod>2020-11-11T00:00:00+00:00</lastmod>
   </url>
   

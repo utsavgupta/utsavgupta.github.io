@@ -6,10 +6,20 @@
     <description>Recent content on Utsav Gupta</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 11 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 13 Mar 2022 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://utsavgupta.in/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Lessons learnt from replaying ELB logs at scale</title>
+      <link>https://utsavgupta.in/blog/lessons-learnt-from-replaying-elb-logs-at-scale/</link>
+      <pubDate>Sun, 13 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://utsavgupta.in/blog/lessons-learnt-from-replaying-elb-logs-at-scale/</guid>
+      <description>As part of our exercise of porting a Kotlin application to Go, we wanted to test the port by mirroring production traffic to it in lower environments. Our applications are hosted on AWS, and initially the platform team had considered VPC mirroring to accomplish this goal. However, the option turned out to be infeasible for reasons unbeknownst to me.
+We resorted to re-playing ELB log messages from one environment to another.</description>
+    </item>
     
     <item>
       <title>Leader election</title>
