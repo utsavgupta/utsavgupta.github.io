@@ -92,7 +92,7 @@
 <h2 id="deployment">Deployment</h2>
 <p>Given that this tool would be seldom used, and possibly shelved once our transition from Kotlin to Go is complete meant we needed something simpler than having someone from the platform team configure a brand new pipeline for it.</p>
 <p>For the first few runs we used the AWS CLI to provision resources, and then scp-ed the binaries and SSH-ed into the compute instances to start the applications. It was an onerous task.</p>
-<p>Our first attempt at automating this was to write an elaborate bash script which sooned turned ugly. <a href="https://www.terraform.io/">Terraform</a> provided a great way of provisioning and draining infrastructure resources, as well as deploying and executing our binaries.</p>
+<p>Our first attempt at automating this was to write an elaborate bash script which soon turned ugly. <a href="https://www.terraform.io/">Terraform</a> provided a great way of provisioning and draining infrastructure resources, as well as deploying and executing our binaries.</p>
 
     </section>
     <div id="progress-bar"></div>
