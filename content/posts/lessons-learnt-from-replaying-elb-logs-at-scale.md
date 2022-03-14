@@ -39,7 +39,7 @@ The base project has been developed as a command line application. It accepts th
 
 We needed to design a job that would fetch the log files from Amazon S3, process them (described in the next section), and then pass the list of files to the player.
 
-We decided to strip away the command line interface of the base project and replace it was a shiny new GRPC server. At this point I'm sure I've managed to raise a few eyebrows by bringing GRPC into the design. We wanted to ensure that the downloader and the log player do not get into contention for CPU time. A simple solution was to separate the two into independent processes and specify their CPU allocation with `GOMAXPROCS`.
+We decided to strip away the command line interface of the base project and replace it with a shiny new GRPC server. At this point I'm sure I've managed to raise a few eyebrows by bringing GRPC into the design. We wanted to ensure that the downloader and the log player do not get into contention for CPU time. A simple solution was to separate the two into independent processes and specify their CPU allocation with `GOMAXPROCS`.
 
 The approach allowed us to download log files and process them periodically while maintaining the desired throughput of the log player.
 
