@@ -81,4 +81,4 @@ Given that this tool would be seldom used, and possibly shelved once our transit
 
 For the first few runs we used the AWS CLI to provision resources, and then scp-ed the binaries and SSH-ed into the compute instances to start the applications. It was an onerous task. 
 
-Our first attempt at automating this was to write an elaborate bash script which sooned turned ugly. [Terraform](https://www.terraform.io/) provided a great way of provisioning and draining infrastructure resources, as well as deploying and executing our binaries.
+Our first attempt at automating this was to write an elaborate bash script which soon turned ugly. [Terraform](https://www.terraform.io/) provided a great way of provisioning and draining infrastructure resources, as well as deploying and executing our binaries.
