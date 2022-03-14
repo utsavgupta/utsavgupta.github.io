@@ -66,14 +66,6 @@
 <p>We needed to design a job that would fetch the log files from Amazon S3, process them (described in the next section), and then pass the list of files to the player.</p>
 <p>We decided to strip away the command line interface of the base project and replace it was a shiny new GRPC server. At this point I&rsquo;m sure I&rsquo;ve managed to raise a few eyebrows by bringing GRPC into the design. We wanted to ensure that the downloader and the log player do not get into contention for CPU time. A simple solution was to separate the two into independent processes and specify their CPU allocation with <code>GOMAXPROCS</code>.</p>
 <p>The approach allowed us to download log files and process them periodically while maintaining the desired throughput of the log player.</p>
-<p><img 
-style="display: block; 
-margin-left: auto;
-margin-right: auto;
-width: 75%;"
-src="/img/elb-log-replay-architecture.png" 
-alt="Our logo">
-</img></p>
 <h2 id="traffic-shaping">Traffic shaping</h2>
 <p>Before we could send the log files for replaying we had to weed out access logs of routes that we did not intend to replay. This took away any processing task that might have been needed by the base project.</p>
 <p>Our Elastic Load Balancer instances are configured to generate log files at an interval of 5 minutes. As a first step we calculated the throughput using the following formula.</p>
