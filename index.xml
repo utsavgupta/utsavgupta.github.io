@@ -18,7 +18,7 @@
       
       <guid>https://utsavgupta.in/blog/lessons-learnt-from-replaying-elb-logs-at-scale/</guid>
       <description>As part of our exercise of porting a Kotlin application to Go, we wanted to test the port by mirroring production traffic to it in lower environments. Our applications are hosted on AWS, and initially the platform team had considered VPC mirroring to accomplish this goal. However, the option turned out to be infeasible for reasons unbeknownst to me.
-We resorted to re-playing ELB log messages from one environment to another.</description>
+We resorted to replaying ELB log messages from one environment to another.</description>
     </item>
     
     <item>
