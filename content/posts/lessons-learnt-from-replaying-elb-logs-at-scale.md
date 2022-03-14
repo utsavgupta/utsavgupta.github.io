@@ -9,7 +9,7 @@ description: "Notes taken while developing a scalable access log re-player."
 
 As part of our exercise of porting a Kotlin application to Go, we wanted to test the port by mirroring production traffic to it in lower environments. Our applications are hosted on AWS, and initially the platform team had considered VPC mirroring to accomplish this goal. However, the option turned out to be infeasible for reasons unbeknownst to me.
 
-We resorted to re-playing ELB log messages from one environment to another. This is a fairly common activity and we hoped to find a repository for the same on Github.
+We resorted to replaying ELB log messages from one environment to another. This is a fairly common activity and we hoped to find a repository for the same on Github.
 
 We came across the following Go projects for the purpose of playing ELB access logs.
 
