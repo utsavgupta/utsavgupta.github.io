@@ -43,6 +43,15 @@ We decided to strip away the command line interface of the base project and repl
 
 The approach allowed us to download log files and process them periodically while maintaining the desired throughput of the log player.
 
+<img 
+    style="display: block; 
+           margin-left: auto;
+           margin-right: auto;
+           width: 75%;"
+    src="/img/elb-log-replay-architecture.png" 
+    alt="Our logo">
+</img>
+
 ## Traffic shaping
 
 Before we could send the log files for replaying we had to weed out access logs of routes that we did not intend to replay. This took away any processing task that might have been needed by the base project.
