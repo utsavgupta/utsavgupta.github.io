@@ -5,8 +5,8 @@
 }
 
 :root {
-    --secondary-font: 'Montserrat', sans-serif;
-    --primary-font: 'Roboto Slab', serif;
+    --secondary-font: 'Merriweather', sans-serif;
+    --primary-font: 'Source Sans 3', serif;
     --color-background: {{ .Site.Params.Colors.Light.Background }};
     --color-text: {{ .Site.Params.Colors.Light.Text }};
     --color-emph-1: {{ .Site.Params.Colors.Light.Primary }};
